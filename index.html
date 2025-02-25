@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Doom in HTML</title>
-    <meta name="description" content="Doom in HTML">
+    <title>DOOM Scroll</title>
+    <meta name="description" content="DOOM Scroll">
     <meta name="keywords" content="">
     <meta name="author" content="Geoff Thompson">
-    <meta property="og:title" content="Doom in HTML">
+    <meta property="og:title" content="DOOM Scroll">
     <meta property="og:type" content="website">
-    <meta property="og:description" content="Doom in HTML">
+    <meta property="og:description" content="DOOM Scroll">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-<h1>Doom in HTML</h1>
+<h1>
+    <span class="doom-left">Do</span>
+    <span class="doom-right">oM</span>
+    <div class="scroll-text">SCROLL</div>
+</h1>
 <div id="viewport">
     <div id="env">
         <div id="top"></div>
@@ -64,16 +68,6 @@
           if (distance > 100) {
               jQuery('#id').css('display', 'none');
           }
-
-
-          if (distance > 100) {
-              flyStart++
-              jQuery('#id2').css({'max-width': flyStart + 'px'});
-          }
-
-          if (distance > 150) {
-              jQuery('#id22').css('display', 'none');
-          }
       } else if (e.keyCode == 40 || e.keyCode == 83) {
           // Down arrow key clicks
           distance--
@@ -86,7 +80,7 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
-          if (distance > 100 && distance < 150) {
+          if (distance > 50 && distance < 100) {
               flyStart--
               jQuery('#id').css({'margin-top': flyStart * .1 + '%', 'max-width': flyStart + 'mm'});
           }
