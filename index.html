@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doom in HTML</title>
+    <meta name="description" content="Doom in HTML">
+    <meta name="keywords" content="">
+    <meta name="author" content="Geoff Thompson">
+    <meta property="og:title" content="Doom in HTML">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Doom in HTML">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Doom in HTML</h1>
+<div id="viewport">
+    <div id="top"></div>
+    <div id="middle">
+        <div class="wall" id="left-wall"></div>
+        <div class="right wall" id="right-wall"></div>
+    </div>
+    <div id="bottom"></div>
+</div>
+
+
+<script>
+  var distance = 0;
+  jQuery(document).on('keydown', function(e) {
+      if (e.keyCode == 38) {
+          // Up arrow key clicks
+          distance++
+          var negativeMM = '-' + distance + 'mm';
+          var positiveMM = distance + 'mm';
+          var negativePX = '-' + distance + 'px';
+          var positivePX = distance + 'px';
+          jQuery('#bottom').css('background-position-y', positivePX);
+          jQuery('#top').css('background-position-y', negativePX);
+          jQuery('#left-wall').css('background-position-x', negativeMM);
+          jQuery('#right-wall').css('background-position-x', positiveMM);
+      } else if (e.keyCode == 40) {
+          // Down arrow key clicks
+          distance--
+          var negativeMM = '-' + distance + 'mm';
+          var positiveMM = distance + 'mm';
+          var negativePX = '-' + distance + 'px';
+          var positivePX = distance + 'px';
+          jQuery('#bottom').css('background-position-y', positivePX);
+          jQuery('#top').css('background-position-y', negativePX);
+          jQuery('#left-wall').css('background-position-x', negativeMM);
+          jQuery('#right-wall').css('background-position-x', positiveMM);
+      }
+  });
+</script>
+</body>
+</html>
