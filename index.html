@@ -17,21 +17,34 @@
 <body>
 <h1>Doom in HTML</h1>
 <div id="viewport">
-    <div>
-    <div id="top"></div>
-    <div id="middle">
-        <div class="wall" id="left-wall"></div>
-        <div class="right wall" id="right-wall"></div>
+    <div id="env">
+        <div id="top"></div>
+        <div id="middle">
+            <div class="wall" id="left-wall"></div>
+            <div class="right wall" id="right-wall"></div>
+        </div>
+        <div id="bottom"></div>
     </div>
-    <div id="bottom"></div>
+    <div id="floor">
+        <a href="https://www.idsoftware.com" target="_blank">
+            <img alt="id Software logo" id="id" src="img/id.png" />
+        </a>
     </div>
-</div>
+    <div id="walls">
+        <a href="https://www.idsoftware.com" target="_blank">
+            <img alt="id Software logo" id="id2" src="img/id.png" />
+        </a>
+    </div>
+ </div>
 
 
 <script>
   var distance = 0;
+  var flyStart = 0
+
+
   jQuery(document).on('keydown', function(e) {
-      if (e.keyCode == 38) {
+      if (e.keyCode == 38 || e.keyCode == 87) {
           // Up arrow key clicks
           distance++
           var negativeFloor = '-' + distance * 2 + 'px';
@@ -42,7 +55,26 @@
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
-      } else if (e.keyCode == 40) {
+
+          if (distance > 50) {
+              flyStart++
+              jQuery('#id').css({'margin-top': flyStart * .1 + '%', 'max-width': flyStart + 'mm'});
+          }
+
+          if (distance > 100) {
+              jQuery('#id').css('display', 'none');
+          }
+
+
+          if (distance > 100) {
+              flyStart++
+              jQuery('#id2').css({'max-width': flyStart + 'px'});
+          }
+
+          if (distance > 150) {
+              jQuery('#id22').css('display', 'none');
+          }
+      } else if (e.keyCode == 40 || e.keyCode == 83) {
           // Down arrow key clicks
           distance--
           var negativeFloor = '-' + distance * 2 + 'px';
@@ -53,6 +85,11 @@
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
+
+          if (distance > 100 && distance < 150) {
+              flyStart--
+              jQuery('#id').css({'margin-top': flyStart * .1 + '%', 'max-width': flyStart + 'mm'});
+          }
       }
   });
 </script>
