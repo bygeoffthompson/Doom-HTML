@@ -17,12 +17,14 @@
 <body>
 <h1>Doom in HTML</h1>
 <div id="viewport">
+    <div>
     <div id="top"></div>
     <div id="middle">
         <div class="wall" id="left-wall"></div>
         <div class="right wall" id="right-wall"></div>
     </div>
     <div id="bottom"></div>
+    </div>
 </div>
 
 
@@ -32,25 +34,25 @@
       if (e.keyCode == 38) {
           // Up arrow key clicks
           distance++
-          var negativeMM = '-' + distance + 'mm';
-          var positiveMM = distance + 'mm';
-          var negativePX = '-' + distance + 'px';
-          var positivePX = distance + 'px';
-          jQuery('#bottom').css('background-position-y', positivePX);
-          jQuery('#top').css('background-position-y', negativePX);
-          jQuery('#left-wall').css('background-position-x', negativeMM);
-          jQuery('#right-wall').css('background-position-x', positiveMM);
+          var negativeFloor = '-' + distance * 2 + 'px';
+          var positiveFloor = distance * 2 + 'px';
+          var negativeWall = '-' + distance * 2.66 + 'px';
+          var positiveWall = distance * 2.66 + 'px';
+          jQuery('#bottom').css('background-position-y', positiveFloor);
+          jQuery('#top').css('background-position-y', negativeFloor);
+          jQuery('#left-wall').css('background-position-x', negativeWall);
+          jQuery('#right-wall').css('background-position-x', positiveWall);
       } else if (e.keyCode == 40) {
           // Down arrow key clicks
           distance--
-          var negativeMM = '-' + distance + 'mm';
-          var positiveMM = distance + 'mm';
-          var negativePX = '-' + distance + 'px';
-          var positivePX = distance + 'px';
-          jQuery('#bottom').css('background-position-y', positivePX);
-          jQuery('#top').css('background-position-y', negativePX);
-          jQuery('#left-wall').css('background-position-x', negativeMM);
-          jQuery('#right-wall').css('background-position-x', positiveMM);
+          var negativeFloor = '-' + distance * 2 + 'px';
+          var positiveFloor = distance * 2 + 'px';
+          var negativeWall = '-' + distance * 2.66 + 'px';
+          var positiveWall = distance * 2.66 + 'px';
+          jQuery('#bottom').css('background-position-y', positiveFloor);
+          jQuery('#top').css('background-position-y', negativeFloor);
+          jQuery('#left-wall').css('background-position-x', negativeWall);
+          jQuery('#right-wall').css('background-position-x', positiveWall);
       }
   });
 </script>
