@@ -18,7 +18,7 @@
 <h1>
     <span class="doom-left">Do</span>
     <span class="doom-right">oM</span>
-    <div class="scroll-text">SCROLL</div>
+    <span class="scroll-text">SCROLL</span>
 </h1>
 <div id="viewport">
     <div id="env">
@@ -29,28 +29,27 @@
         </div>
         <div id="bottom"></div>
     </div>
-    <div id="floor">
-        <a href="https://www.idsoftware.com" target="_blank">
-            <img alt="id Software logo" id="id" src="img/id.png" />
+    <div id="conveyor">
+        <a href="https://www.idsoftware.com" id="id" target="_blank">
+            <img alt="id Software logo" src="img/id.png" />
         </a>
-    </div>
-    <div id="walls">
-        <a href="https://www.idsoftware.com" target="_blank">
-            <img alt="id Software logo" id="id2" src="img/id.png" />
-        </a>
+        <img alt="Enemy IMP" class="imp imp1" id="imp1" src="img/enemies/imp-center-1.png" />
     </div>
  </div>
 
 
 <script>
   var distance = 0;
-  var flyStart = 0
+  var idStart = 0;
+  var impDistance = 0
+  var impStart = 0;
 
 
   jQuery(document).on('keydown', function(e) {
-      if (e.keyCode == 38 || e.keyCode == 87) {
+      if (e.keyCode == 38) {
           // Up arrow key clicks
           distance++
+          // The Environment
           var negativeFloor = '-' + distance * 2 + 'px';
           var positiveFloor = distance * 2 + 'px';
           var negativeWall = '-' + distance * 2.66 + 'px';
@@ -60,16 +59,38 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
-          if (distance > 50) {
-              flyStart++
-              jQuery('#id').css({'margin-top': flyStart * .1 + '%', 'max-width': flyStart + 'mm'});
+          // The Conveyor
+          // id
+          if (distance >= 50 && distance < 100) {
+              idStart++
+              jQuery('#id').css({'opacity': 1, 'margin-top': idStart * .1 + '%', 'max-width': idStart + 'mm'});
+          } else if (distance === 100) {
+              jQuery('#id').remove();
           }
 
-          if (distance > 100) {
-              jQuery('#id').css('display', 'none');
+          // imp1
+          if (distance >= 150 && distance <= 250) {
+              if (impDistance < 50) {
+                  jQuery('#imp1').css({'opacity': 1, 'margin-top': impStart * -.3 + '%', 'max-width': impStart * 2 + '%'});
+                  impDistance++
+                  impStart++
+              } else if (impDistance === 50) {
+                  jQuery('#imp1').remove();
+              } else if (impDistance === 0) {
+                  distance = 150;
+              }
           }
-      } else if (e.keyCode == 40 || e.keyCode == 83) {
+          console.log(distance);
+          console.log(impDistance);
+
+
+
+
+
+
+      } else if (e.keyCode == 40) {
           // Down arrow key clicks
+          // The Environment
           distance--
           var negativeFloor = '-' + distance * 2 + 'px';
           var positiveFloor = distance * 2 + 'px';
@@ -80,10 +101,33 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
-          if (distance > 50 && distance < 100) {
-              flyStart--
-              jQuery('#id').css({'margin-top': flyStart * .1 + '%', 'max-width': flyStart + 'mm'});
+          // The Conveyor
+          // id
+          if (distance >= 51 && distance < 100) {
+              idStart--
+              jQuery('#id').css({'margin-top': idStart * .1 + '%', 'max-width': idStart + 'mm'});
           }
+          // imp1
+          if (distance >= 151 && distance <= 250) {
+              if (impDistance <= 0) {
+                  jQuery('#imp1').css('opacity', 0);
+                  distance = 151;
+              } else if (impDistance > 0 && impDistance < 50) {
+                  jQuery('#imp1').css({'opacity': 1, 'margin-top': impStart * -.3 + '%', 'max-width': impStart * 2 + '%'});
+                  impDistance--
+                  impStart--
+              } else {
+                  jQuery('#imp1').remove();
+              }
+          } else if (distance <= 150) {
+              distance = 150;
+              impDistance = 0;
+          }
+          console.log(distance);
+          console.log(impDistance);
+
+
+
       }
   });
 </script>
