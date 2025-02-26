@@ -20,7 +20,7 @@
     <span class="doom-right">oM</span>
     <span class="scroll-text">SCROLL</span>
 </h1>
-<div id="viewport">
+<div class="straight" id="viewport">
     <div id="env">
         <div id="top"></div>
         <div id="middle">
@@ -35,10 +35,7 @@
         <img alt="Doomguy's hand" id="doomguy" src="img/doomguy/hand.png" />
     </div>
     <div id="conveyor">
-        <a href="https://www.idsoftware.com" id="id" target="_blank">
-            <img alt="id Software logo" src="img/id.png" />
-        </a>
-        <img alt="Enemy IMP" class="imp" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp1" src="img/enemies/imp-1.png" />
+        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="impSolo" src="img/enemies/imp-1.png" />
     </div>
  </div>
 
@@ -50,10 +47,9 @@
 
   var knuckles = true;
   var chainsaw = false;
-  var chainsawInventory = false;
+  var chainsawAccess = false;
 
-  var imp1 = false;
-  var imp2 = false;
+  var impSolo = false;
 
   jQuery(document).on('keydown', function(e) {
   });
@@ -77,8 +73,7 @@
           setTimeout(function () {
               jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
           }, 300);
-      }
-      if (e.keyCode == 17 && chainsaw === true) {
+      } else if (e.keyCode == 17 && chainsaw === true) {
           jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
       }
 
@@ -96,68 +91,47 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
-          // Weapons
-          if (chainsaw === true) {
-              jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
-          } else {
-              jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
-          }
-
           // The Conveyor
-          // id
-          if (id === true && currentDistance > 50) {
+          // impSolo
+          if (currentDistance > 50) {
               if (count >= 0 && count <= 49) {
-                  jQuery('#id').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
-                  count++
-              } else {
-                  jQuery('#id').remove();
-                  currentDistance = 4;
-                  count = 0;
-                  id = false;
-                  imp1 = true;
-              }
-          }
-          // imp1
-          if (imp1 === true && currentDistance > 54) {
-              if (count >= 0 && count <= 59) {
-                  jQuery('#imp1').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
-                  var v1 = jQuery('#imp1').attr('src');
-                  var v2 = jQuery('#imp1').attr('data-v1');
-                  var v3 = jQuery('#imp1').attr('data-v2');
+                  impSolo = true;
+                  jQuery('#impSolo').css({'opacity': 1, 'max-width': count + '%'});
+                  var v1 = jQuery('#impSolo').attr('src');
+                  var v2 = jQuery('#impSolo').attr('data-v1');
+                  var v3 = jQuery('#impSolo').attr('data-v2');
                   if (count % 14 === 0) {
-                      jQuery('#imp1').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
+                      jQuery('#impSolo').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
                   }
                   count++
-              } else if (count >= 60) {
+              } else if (count >= 50) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
                           count++
-                          jQuery('#imp1').attr({'src': 'img/enemies/imp-4.png'});
+                          jQuery('#impSolo').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
-                              jQuery('#imp1').attr({'src': 'img/enemies/imp-5.png'});
+                              jQuery('#impSolo').attr({'src': 'img/enemies/imp-5.png'});
                           }, 750);
 
                           setTimeout(function () {
-                              jQuery('#imp1').remove();
+                              jQuery('#impSolo').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
+                              count = 0;
+                              currentDistance = 0;
+                              impSolo = false;
                           }, 1500);
-
-                          currentDistance = 124;
-                          count = 0;
-                          imp1 = false;
-                          imp2 = true;
                       }
                   });
               }
           }
           // imp2
-          if (imp2 === true && currentDistance > 170) {
-              //nada surf.
+          if (currentDistance > 200 && impSolo === false) {
+              alert('imp again')
           }
           console.log(allDistance + ' allDistance');
           console.log(currentDistance + ' currentDistance');
           console.log(count + ' count');
           console.log(id + ' id');
-          console.log(imp1 + ' imp1');
+          console.log(impSolo + ' impSolo');
 
           // The Wall Art
           if (allDistance > 0 && allDistance <= 249) {
@@ -174,21 +148,57 @@
 
       }
 
+      // Left Arrow clicks.
+      if (e.keyCode == 37) {
+          if (jQuery('#viewport').hasClass('straight')) {
+              jQuery('#viewport').toggleClass('straight left1');
+          } else if (jQuery('#viewport').hasClass('left1')) {
+              jQuery('#viewport').toggleClass('left1 left2');
+          } else if (jQuery('#viewport').hasClass('right2')) {
+              jQuery('#viewport').toggleClass('right2 right1');
+          } else if (jQuery('#viewport').hasClass('right1')) {
+              jQuery('#viewport').toggleClass('right1 straight');
+          }
+      }
+
+      // Right Arrow clicks.
+      if (e.keyCode == 39) {
+          if (jQuery('#viewport').hasClass('straight')) {
+              jQuery('#viewport').toggleClass('straight right1');
+          } else if (jQuery('#viewport').hasClass('right1')) {
+              jQuery('#viewport').toggleClass('right1 right2');
+          } else if (jQuery('#viewport').hasClass('left2')) {
+              jQuery('#viewport').toggleClass('left2 left1');
+          } else if (jQuery('#viewport').hasClass('left1')) {
+              jQuery('#viewport').toggleClass('left1 straight');
+          }
+      }
+
       // Weapon 1.
       if (e.keyCode == 49) {
           knuckles = true;
           chainsaw = false;
+          jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
       }
 
       // Weapon 2.
-      if (e.keyCode == 50 && chainsawInventory === true) {
+      if (e.keyCode == 50 && chainsawAccess === true) {
           knuckles = false;
           chainsaw = true;
+          jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
       }
-
   });
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // Cheat codes
   jQuery(document).on('keydown', function(e) {
       if (e.keyCode == 73) {
@@ -213,7 +223,7 @@
                                                                                   alert('IDCHOPPERS');
                                                                                   knuckles= false;
                                                                                   chainsaw = true;
-                                                                                  chainsawInventory = true;
+                                                                                  chainsawAccess = true;
                                                                               }
                                                                           });
                                                                       }
@@ -234,11 +244,6 @@
           });
       }
   });
-
-
-
-
-
 </script>
 </body>
 </html>
