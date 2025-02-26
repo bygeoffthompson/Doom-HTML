@@ -107,12 +107,14 @@
               if (count >= 42) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
+                          jQuery('#viewport').addClass('health');
                           jQuery('#impSolo').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
                               jQuery('#impSolo').attr({'src': 'img/enemies/imp-5.png'});
                           }, 750);
 
                           setTimeout(function () {
+                              jQuery('#viewport').removeClass('health hurt');
                               jQuery('#impSolo').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
                               jQuery('#conveyor').removeClass('imp-sent');
                               count = 0;
