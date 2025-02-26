@@ -66,6 +66,19 @@ h1 {
     z-index: 3;
 }
 
+#doomguy {
+    bottom: 0;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 50%;
+    z-index: 5;
+}
+
+#doomguy[src$='chainsaw.gif'] {
+    width: 25%;
+}
+
 #id {
     left: 50%;
     max-width: 0;

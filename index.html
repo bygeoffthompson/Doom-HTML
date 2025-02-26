@@ -32,6 +32,7 @@
             </div>
         </div>
         <div id="bottom"></div>
+        <img alt="Doomguy's hand" id="doomguy" src="img/doomguy/hand.png" />
     </div>
     <div id="conveyor">
         <a href="https://www.idsoftware.com" id="id" target="_blank">
@@ -41,22 +42,48 @@
     </div>
  </div>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BmeNfKq-HW8?si=qxWCmqUT5wArKi9j&amp;controls=0&amp;start=7" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-
-
-
 <script>
   var allDistance = 0;
   var count = 0;
   var currentDistance = 0;
   var id = true;
 
+  var knuckles = true;
+  var chainsaw = false;
+  var chainsawInventory = false;
+
   var imp1 = false;
   var imp2 = false;
 
   jQuery(document).on('keydown', function(e) {
+  });
+
+  jQuery(document).on('keydown', function(e) {
+      // Ctrl clicks.
+      if (e.keyCode == 17 && knuckles === true) {
+          jQuery('#doomguy').attr({'src': 'img/doomguy/fist-1.png'});
+          setTimeout(function () {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/fist-2.png'});
+          }, 75);
+
+          setTimeout(function () {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/fist-3.png'});
+          }, 150);
+
+          setTimeout(function () {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/fist-4.png'});
+          }, 225);
+
+          setTimeout(function () {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
+          }, 300);
+      }
+      if (e.keyCode == 17 && chainsaw === true) {
+          jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
+      }
+
+      // Up Arrow clicks.
       if (e.keyCode == 38) {
-          // Up arrow key clicks
           allDistance++
           currentDistance++
           // The Environment
@@ -68,6 +95,13 @@
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
+
+          // Weapons
+          if (chainsaw === true) {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
+          } else {
+              jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
+          }
 
           // The Conveyor
           // id
@@ -94,15 +128,25 @@
                       jQuery('#imp1').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
                   }
                   count++
-              } else if (count >= 60 && count <= 69) {
-                  jQuery('#imp1').attr({'src': 'img/enemies/imp-4.png'})
-                  count++
-              } else {
-                  jQuery('#imp1').remove();
-                  currentDistance = 124;
-                  count = 0;
-                  imp1 = false;
-                  imp2 = true;
+              } else if (count >= 60) {
+                  jQuery(document).on('keydown', function (e) {
+                      if (e.keyCode == 17) {
+                          count++
+                          jQuery('#imp1').attr({'src': 'img/enemies/imp-4.png'});
+                          setTimeout(function () {
+                              jQuery('#imp1').attr({'src': 'img/enemies/imp-5.png'});
+                          }, 750);
+
+                          setTimeout(function () {
+                              jQuery('#imp1').remove();
+                          }, 1500);
+
+                          currentDistance = 124;
+                          count = 0;
+                          imp1 = false;
+                          imp2 = true;
+                      }
+                  });
               }
           }
           // imp2
@@ -123,9 +167,25 @@
               jQuery('.left .wall-red-line').css({'right': '-18px', 'opacity': 0});
               jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
           }
-      } else if (e.keyCode == 40) {
+      }
+
+      // Down Arrow clicks.
+      if (e.keyCode == 40) {
 
       }
+
+      // Weapon 1.
+      if (e.keyCode == 49) {
+          knuckles = true;
+          chainsaw = false;
+      }
+
+      // Weapon 2.
+      if (e.keyCode == 50 && chainsawInventory === true) {
+          knuckles = false;
+          chainsaw = true;
+      }
+
   });
 
 
@@ -151,6 +211,9 @@
                                                                           jQuery(document).on('keyup', function (e) {
                                                                               if (e.keyCode == 82) {
                                                                                   alert('IDCHOPPERS');
+                                                                                  knuckles= false;
+                                                                                  chainsaw = true;
+                                                                                  chainsawInventory = true;
                                                                               }
                                                                           });
                                                                       }
