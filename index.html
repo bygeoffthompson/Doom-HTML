@@ -24,8 +24,12 @@
     <div id="env">
         <div id="top"></div>
         <div id="middle">
-            <div class="wall" id="left-wall"></div>
-            <div class="right wall" id="right-wall"></div>
+            <div class="left wall" id="left-wall">
+                <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+            </div>
+            <div class="right wall" id="right-wall">
+                <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+            </div>
         </div>
         <div id="bottom"></div>
     </div>
@@ -33,16 +37,20 @@
         <a href="https://www.idsoftware.com" id="id" target="_blank">
             <img alt="id Software logo" src="img/id.png" />
         </a>
-        <img alt="Enemy IMP" class="imp" id="imp1" src="img/enemies/imp-center-1.png" />
-        <img alt="Enemy IMP" class="imp" id="imp2" src="img/enemies/imp-center-2.png" />
+        <img alt="Enemy IMP" class="imp" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp1" src="img/enemies/imp-1.png" />
     </div>
  </div>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BmeNfKq-HW8?si=qxWCmqUT5wArKi9j&amp;controls=0&amp;start=7" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+
 
 <script>
-  var id = true;
-  var count = 0;
   var allDistance = 0;
+  var count = 0;
+  var currentDistance = 0;
+  var id = true;
+
   var imp1 = false;
   var imp2 = false;
 
@@ -50,11 +58,12 @@
       if (e.keyCode == 38) {
           // Up arrow key clicks
           allDistance++
+          currentDistance++
           // The Environment
-          var negativeFloor = '-' + allDistance * 2 + 'px';
-          var positiveFloor = allDistance * 2 + 'px';
-          var negativeWall = '-' + allDistance * 2.66 + 'px';
-          var positiveWall = allDistance * 2.66 + 'px';
+          var negativeFloor = '-' + currentDistance * 2 + 'px';
+          var positiveFloor = currentDistance * 2 + 'px';
+          var negativeWall = '-' + currentDistance * 2.66 + 'px';
+          var positiveWall = currentDistance * 2.66 + 'px';
           jQuery('#bottom').css('background-position-y', positiveFloor);
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
@@ -62,52 +71,64 @@
 
           // The Conveyor
           // id
-          if (id === true && allDistance > 50) {
+          if (id === true && currentDistance > 50) {
               if (count >= 0 && count <= 49) {
                   jQuery('#id').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
                   count++
               } else {
                   jQuery('#id').remove();
-                  allDistance = 4;
+                  currentDistance = 4;
                   count = 0;
                   id = false;
                   imp1 = true;
               }
           }
           // imp1
-          if (imp1 === true && allDistance > 50) {
-              if (count >= 0 && count <= 49) {
+          if (imp1 === true && currentDistance > 54) {
+              if (count >= 0 && count <= 59) {
                   jQuery('#imp1').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
+                  var v1 = jQuery('#imp1').attr('src');
+                  var v2 = jQuery('#imp1').attr('data-v1');
+                  var v3 = jQuery('#imp1').attr('data-v2');
+                  if (count % 14 === 0) {
+                      jQuery('#imp1').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
+                  }
+                  count++
+              } else if (count >= 60 && count <= 69) {
+                  jQuery('#imp1').attr({'src': 'img/enemies/imp-4.png'})
                   count++
               } else {
                   jQuery('#imp1').remove();
-                  allDistance = 4;
+                  currentDistance = 124;
                   count = 0;
                   imp1 = false;
                   imp2 = true;
               }
           }
           // imp2
-          if (imp2 === true && allDistance > 50) {
-              if (count >= 0 && count <= 49) {
-                  jQuery('#imp2').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
-                  count++
-              } else {
-                  jQuery('#imp2').remove();
-                  allDistance = 4;
-                  count = 0;
-                  imp2 = false;
-              }
+          if (imp2 === true && currentDistance > 170) {
+              //nada surf.
           }
           console.log(allDistance + ' allDistance');
+          console.log(currentDistance + ' currentDistance');
           console.log(count + ' count');
           console.log(id + ' id');
           console.log(imp1 + ' imp1');
-          console.log(imp2 + ' imp2');
+
+          // The Wall Art
+          if (allDistance > 0 && allDistance <= 249) {
+              jQuery('.left .wall-red-line').css({'right': allDistance * 2.66 - 18 + 'px', 'opacity': 1});
+              jQuery('.right .wall-red-line').css({'left': allDistance * 2.66 + 'px', 'opacity': 1});
+          } else if (allDistance === 250) {
+              jQuery('.left .wall-red-line').css({'right': '-18px', 'opacity': 0});
+              jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
+          }
       } else if (e.keyCode == 40) {
 
       }
   });
+
+
 </script>
 </body>
 </html>
