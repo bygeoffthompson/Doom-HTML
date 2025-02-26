@@ -43,16 +43,11 @@
   var allDistance = 0;
   var count = 0;
   var currentDistance = 0;
-  var id = true;
-
   var knuckles = true;
   var chainsaw = false;
   var chainsawAccess = false;
-
-  var impSolo = false;
-
-  jQuery(document).on('keydown', function(e) {
-  });
+  var pistol = false;
+  var pistolAccess = false;
 
   jQuery(document).on('keydown', function(e) {
       // Ctrl clicks.
@@ -91,11 +86,15 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
+          // Enemies
+          if (allDistance === 33 || allDistance === 233 || allDistance === 550) {
+              jQuery('#conveyor').addClass('imp-sent');
+          }
+
           // The Conveyor
           // impSolo
-          if (currentDistance > 50) {
-              if (count >= 0 && count <= 49) {
-                  impSolo = true;
+          if (jQuery('#conveyor').hasClass('imp-sent')) {
+              if (count <= 49) {
                   jQuery('#impSolo').css({'opacity': 1, 'max-width': count + '%'});
                   var v1 = jQuery('#impSolo').attr('src');
                   var v2 = jQuery('#impSolo').attr('data-v1');
@@ -115,23 +114,14 @@
 
                           setTimeout(function () {
                               jQuery('#impSolo').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
+                              jQuery('#conveyor').removeClass('imp-sent');
                               count = 0;
                               currentDistance = 0;
-                              impSolo = false;
                           }, 1500);
                       }
                   });
               }
           }
-          // imp2
-          if (currentDistance > 200 && impSolo === false) {
-              alert('imp again')
-          }
-          console.log(allDistance + ' allDistance');
-          console.log(currentDistance + ' currentDistance');
-          console.log(count + ' count');
-          console.log(id + ' id');
-          console.log(impSolo + ' impSolo');
 
           // The Wall Art
           if (allDistance > 0 && allDistance <= 249) {
@@ -141,6 +131,9 @@
               jQuery('.left .wall-red-line').css({'right': '-18px', 'opacity': 0});
               jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
           }
+
+          console.log(allDistance + ' allDistance');
+          console.log(currentDistance + ' currentDistance');
       }
 
       // Down Arrow clicks.
