@@ -52,6 +52,22 @@ iframe {
     width: 100%;
 }
 
+#viewport::before {
+    background: transparent;
+    content: '';
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+#viewport.hurt::before {
+    background: radial-gradient(transparent, red);
+}
+
 #env {
     height: 100%;
     position: relative;
@@ -99,6 +115,10 @@ h1 {
     transform: translate(-50%);
     width: 100%;
     z-index: 2;
+}
+
+.imp[src$='5.png'] {
+    top: 475px;
 }
 
 #top {
