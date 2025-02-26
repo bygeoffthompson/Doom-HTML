@@ -33,27 +33,28 @@
         <a href="https://www.idsoftware.com" id="id" target="_blank">
             <img alt="id Software logo" src="img/id.png" />
         </a>
-        <img alt="Enemy IMP" class="imp imp1" id="imp1" src="img/enemies/imp-center-1.png" />
+        <img alt="Enemy IMP" class="imp" id="imp1" src="img/enemies/imp-center-1.png" />
+        <img alt="Enemy IMP" class="imp" id="imp2" src="img/enemies/imp-center-2.png" />
     </div>
  </div>
 
 
 <script>
-  var distance = 0;
-  var idStart = 0;
-  var impDistance = 0
-  var impStart = 0;
-
+  var id = true;
+  var count = 0;
+  var allDistance = 0;
+  var imp1 = false;
+  var imp2 = false;
 
   jQuery(document).on('keydown', function(e) {
       if (e.keyCode == 38) {
           // Up arrow key clicks
-          distance++
+          allDistance++
           // The Environment
-          var negativeFloor = '-' + distance * 2 + 'px';
-          var positiveFloor = distance * 2 + 'px';
-          var negativeWall = '-' + distance * 2.66 + 'px';
-          var positiveWall = distance * 2.66 + 'px';
+          var negativeFloor = '-' + allDistance * 2 + 'px';
+          var positiveFloor = allDistance * 2 + 'px';
+          var negativeWall = '-' + allDistance * 2.66 + 'px';
+          var positiveWall = allDistance * 2.66 + 'px';
           jQuery('#bottom').css('background-position-y', positiveFloor);
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
@@ -61,72 +62,49 @@
 
           // The Conveyor
           // id
-          if (distance >= 50 && distance < 100) {
-              idStart++
-              jQuery('#id').css({'opacity': 1, 'margin-top': idStart * .1 + '%', 'max-width': idStart + 'mm'});
-          } else if (distance === 100) {
-              jQuery('#id').remove();
-          }
-
-          // imp1
-          if (distance >= 150 && distance <= 250) {
-              if (impDistance < 50) {
-                  jQuery('#imp1').css({'opacity': 1, 'margin-top': impStart * -.3 + '%', 'max-width': impStart * 2 + '%'});
-                  impDistance++
-                  impStart++
-              } else if (impDistance === 50) {
-                  jQuery('#imp1').remove();
-              } else if (impDistance === 0) {
-                  distance = 150;
+          if (id === true && allDistance > 50) {
+              if (count >= 0 && count <= 49) {
+                  jQuery('#id').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
+                  count++
+              } else {
+                  jQuery('#id').remove();
+                  allDistance = 4;
+                  count = 0;
+                  id = false;
+                  imp1 = true;
               }
           }
-          console.log(distance);
-          console.log(impDistance);
-
-
-
-
-
-
-      } else if (e.keyCode == 40) {
-          // Down arrow key clicks
-          // The Environment
-          distance--
-          var negativeFloor = '-' + distance * 2 + 'px';
-          var positiveFloor = distance * 2 + 'px';
-          var negativeWall = '-' + distance * 2.66 + 'px';
-          var positiveWall = distance * 2.66 + 'px';
-          jQuery('#bottom').css('background-position-y', positiveFloor);
-          jQuery('#top').css('background-position-y', negativeFloor);
-          jQuery('#left-wall').css('background-position-x', negativeWall);
-          jQuery('#right-wall').css('background-position-x', positiveWall);
-
-          // The Conveyor
-          // id
-          if (distance >= 51 && distance < 100) {
-              idStart--
-              jQuery('#id').css({'margin-top': idStart * .1 + '%', 'max-width': idStart + 'mm'});
-          }
           // imp1
-          if (distance >= 151 && distance <= 250) {
-              if (impDistance <= 0) {
-                  jQuery('#imp1').css('opacity', 0);
-                  distance = 151;
-              } else if (impDistance > 0 && impDistance < 50) {
-                  jQuery('#imp1').css({'opacity': 1, 'margin-top': impStart * -.3 + '%', 'max-width': impStart * 2 + '%'});
-                  impDistance--
-                  impStart--
+          if (imp1 === true && allDistance > 50) {
+              if (count >= 0 && count <= 49) {
+                  jQuery('#imp1').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
+                  count++
               } else {
                   jQuery('#imp1').remove();
+                  allDistance = 4;
+                  count = 0;
+                  imp1 = false;
+                  imp2 = true;
               }
-          } else if (distance <= 150) {
-              distance = 150;
-              impDistance = 0;
           }
-          console.log(distance);
-          console.log(impDistance);
-
-
+          // imp2
+          if (imp2 === true && allDistance > 50) {
+              if (count >= 0 && count <= 49) {
+                  jQuery('#imp2').css({'opacity': 1, 'margin-top': count * .1 + '%', 'max-width': count + 'mm'});
+                  count++
+              } else {
+                  jQuery('#imp2').remove();
+                  allDistance = 4;
+                  count = 0;
+                  imp2 = false;
+              }
+          }
+          console.log(allDistance + ' allDistance');
+          console.log(count + ' count');
+          console.log(id + ' id');
+          console.log(imp1 + ' imp1');
+          console.log(imp2 + ' imp2');
+      } else if (e.keyCode == 40) {
 
       }
   });
