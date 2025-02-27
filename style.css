@@ -171,6 +171,14 @@ h1 {
     letter-spacing: 5px;
 }
 
+.door {
+    height: 100%;
+    margin-left: -275px;
+    opacity: 1;
+    position: absolute;
+    width: auto;
+}
+
 .scroll-text {
     font-size: 24px;
     margin-top: -66px;

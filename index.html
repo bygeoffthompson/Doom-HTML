@@ -29,6 +29,7 @@
             </div>
             <div class="right wall" id="right-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+                <img alt="Door" class="door" src="img/door.png" />
             </div>
         </div>
         <div id="bottom"></div>
@@ -134,12 +135,16 @@
           }
 
           // The Wall Art
-          if (allDistance > 0 && allDistance <= 249) {
+          if (allDistance > 0 && allDistance <= 349) {
               jQuery('.left .wall-red-line').css({'right': allDistance * 2.66 - 18 + 'px', 'opacity': 1});
               jQuery('.right .wall-red-line').css({'left': allDistance * 2.66 + 'px', 'opacity': 1});
-          } else if (allDistance === 250) {
+          } else if (allDistance === 350) {
               jQuery('.left .wall-red-line').css({'right': '-18px', 'opacity': 0});
               jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
+          }
+
+          if (allDistance > 100 && allDistance <= 649) {
+              jQuery('.door').css({'left': allDistance * 2.66 - 375 + 'px', 'opacity': 1});
           }
 
           console.log(allDistance + ' allDistance');
