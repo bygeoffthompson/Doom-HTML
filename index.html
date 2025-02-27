@@ -26,17 +26,18 @@
         <div id="middle">
             <div class="left wall" id="left-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+                <img alt="Door" class="door" id="left-door" src="img/door.png" />
             </div>
             <div class="right wall" id="right-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
-                <img alt="Door" class="door" src="img/door.png" />
+                <img alt="Door" class="door" id="right-door" src="img/door.png" />
             </div>
         </div>
         <div id="bottom"></div>
         <img alt="Doomguy's hand" id="doomguy" src="img/doomguy/hand.png" />
     </div>
     <div id="conveyor">
-        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="impSolo" src="img/enemies/imp-1.png" />
+        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
     </div>
  </div>
 
@@ -92,15 +93,15 @@
               jQuery('#conveyor').addClass('imp-sent');
           }
 
-          // impSolo
+          // imp
           if (jQuery('#conveyor').hasClass('imp-sent')) {
               if (count <= 49) {
-                  jQuery('#impSolo').css({'opacity': 1, 'margin-top': count * -.15 + '%', 'max-width': count + '%'});
-                  var v1 = jQuery('#impSolo').attr('src');
-                  var v2 = jQuery('#impSolo').attr('data-v1');
-                  var v3 = jQuery('#impSolo').attr('data-v2');
+                  jQuery('#imp').css({'opacity': 1, 'margin-top': count * -.25 + '%', 'max-width': count + '%'});
+                  var v1 = jQuery('#imp').attr('src');
+                  var v2 = jQuery('#imp').attr('data-v1');
+                  var v3 = jQuery('#imp').attr('data-v2');
                   if (count % 14 === 0) {
-                      jQuery('#impSolo').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
+                      jQuery('#imp').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
                   }
                   count++
               }
@@ -109,14 +110,14 @@
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
                           jQuery('#viewport').addClass('health');
-                          jQuery('#impSolo').attr({'src': 'img/enemies/imp-4.png'});
+                          jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
-                              jQuery('#impSolo').attr({'src': 'img/enemies/imp-5.png'});
+                              jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
                           }, 750);
 
                           setTimeout(function () {
                               jQuery('#viewport').removeClass('health hurt');
-                              jQuery('#impSolo').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
+                              jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
                               jQuery('#conveyor').removeClass('imp-sent');
                               count = 0;
                               currentDistance = 0;
@@ -134,7 +135,7 @@
               }
           }
 
-          // The Wall Art
+          // Red Lines.
           if (allDistance > 0 && allDistance <= 349) {
               jQuery('.left .wall-red-line').css({'right': allDistance * 2.66 - 18 + 'px', 'opacity': 1});
               jQuery('.right .wall-red-line').css({'left': allDistance * 2.66 + 'px', 'opacity': 1});
@@ -143,9 +144,25 @@
               jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
           }
 
+          // Doors.
           if (allDistance > 100 && allDistance <= 649) {
-              jQuery('.door').css({'left': allDistance * 2.66 - 375 + 'px', 'opacity': 1});
+              jQuery('#right-door').css({'left': allDistance * 2.66 - 380 + 'px', 'opacity': 1});
+              if (allDistance === 300) {
+                  jQuery('#right-door').css('transform', 'scaleX(.5)');
+              }
+          } else if (allDistance === 650) {
+              jQuery('#right-door').css({'opacity': 0, 'left': '-280px'});
           }
+          if (allDistance > 700 && allDistance <= 1249) {
+              jQuery('#left-door').css({'right': (allDistance - 699) * 2.66 + 'px', 'opacity': 1});
+              if (allDistance === 900) {
+                  jQuery('#left-door').css('transform', 'scaleX(.5)');
+              }
+          } else if (allDistance === 1250) {
+              jQuery('#left-door').css({'opacity': 0, 'right': '0px'});
+          }
+
+
 
           console.log(allDistance + ' allDistance');
           console.log(currentDistance + ' currentDistance');
