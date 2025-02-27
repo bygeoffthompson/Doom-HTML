@@ -56,10 +56,6 @@ body {
     background: radial-gradient(transparent, red);
 }
 
-#viewport.health::before {
-    background: transparent !important;
-}
-
 #env {
     height: 100%;
     position: relative;

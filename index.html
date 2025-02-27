@@ -11,6 +11,7 @@
     <meta property="og:title" content="Doom Scrolling">
     <meta property="og:type" content="website">
     <meta property="og:description" content="Doom Scrolling">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Google tag (gtag.js) -->
@@ -29,21 +30,21 @@
     <span class="doom-right">oM</span>
     <span class="scroll-text">SCROLL</span>
 </h1>
-<div class="straight" id="viewport">
+<div class="straight yes-progress" id="viewport">
     <div id="env">
         <div id="top"></div>
         <div id="middle">
             <div class="left wall" id="left-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
-                <img alt="Door" class="door" id="left-door" src="img/door.png" />
+                <img alt="Door" class="door" id="left-door" src="img/door-wall.png" />
             </div>
             <div class="right wall" id="right-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
-                <img alt="Door" class="door" id="right-door" src="img/door.png" />
+                <img alt="Door" class="door" id="right-door" src="img/door-wall.png" />
             </div>
         </div>
         <div id="bottom"></div>
-        <img alt="Doomguy's hand" id="doomguy" src="img/doomguy/hand.png" />
+        <img alt="Doomguy" id="doomguy" src="img/doomguy/hand.png" />
     </div>
     <div id="conveyor">
         <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
@@ -79,12 +80,15 @@
           setTimeout(function () {
               jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
           }, 300);
-      } else if (e.keyCode == 17 && chainsaw === true) {
-          jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
+      }
+
+      if (e.keyCode == 17 && chainsaw === true) {
+          jQuery('#doomguy').css('transform', 'translateX(-50%) skew(40deg)');
+          jQuery('#imp').addClass('chainsaw');
       }
 
       // Up Arrow clicks.
-      if (e.keyCode == 38) {
+      if (e.keyCode == 38 && jQuery('#viewport').hasClass('yes-progress')) {
           allDistance++
           currentDistance++
           // The Environment
@@ -97,14 +101,14 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
-          // Enemies
+          // Enemies sent down conveyor.
           if (allDistance === 33 || allDistance === 233 || allDistance === 550) {
               jQuery('#conveyor').addClass('imp-sent');
           }
 
-          // imp
+          // Imps.
           if (jQuery('#conveyor').hasClass('imp-sent')) {
-              if (count <= 49) {
+              if (count <= 54) {
                   jQuery('#imp').css({'opacity': 1, 'margin-top': count * -.25 + '%', 'max-width': count + '%'});
                   var v1 = jQuery('#imp').attr('src');
                   var v2 = jQuery('#imp').attr('data-v1');
@@ -115,32 +119,50 @@
                   count++
               }
 
+              if (count === 50 && jQuery('#imp').hasClass('chainsaw')) {
+                  jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                  jQuery('#conveyor').removeClass('imp-sent');
+                  jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
+                  setTimeout(function () {
+                      jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
+                  }, 750);
+
+                  setTimeout(function () {
+                      jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
+                      count = 0;
+                      currentDistance = 0;
+                  }, 1500);
+              }
+
+              if (count === 55) {
+                  jQuery('#viewport').addClass('hurt');
+                  var impHurt = window.setInterval(function(){
+                      jQuery('#viewport').toggleClass('hurt');
+                  }, 1000);
+              }
+
               if (count >= 42) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
-                          jQuery('#viewport').addClass('health');
+                          clearInterval(impHurt);
+                          jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                          jQuery('#conveyor').removeClass('imp-sent');
                           jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
                               jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
                           }, 750);
 
                           setTimeout(function () {
-                              jQuery('#viewport').removeClass('health hurt');
                               jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
-                              jQuery('#conveyor').removeClass('imp-sent');
                               count = 0;
                               currentDistance = 0;
                           }, 1500);
                       }
                   });
-                  count++
               }
 
-              if (count === 55) {
-                  jQuery('#viewport').addClass('hurt');
-                  setTimeout(function () {
-                      jQuery('#viewport').removeClass('hurt');
-                  }, 500);
+              if (count >= 55 && jQuery('#conveyor').hasClass('imp-sent')) {
+                  jQuery('#viewport').removeClass('yes-progress');
               }
           }
 
@@ -173,15 +195,13 @@
 
 
 
-          console.log(allDistance + ' allDistance');
-          console.log(currentDistance + ' currentDistance');
+          //console.log(allDistance + ' allDistance');
+          //console.log(currentDistance + ' currentDistance');
           console.log(count + ' count');
       }
 
       // Down Arrow clicks.
-      if (e.keyCode == 40) {
-
-      }
+      if (e.keyCode == 40) {}
 
       // Left Arrow clicks.
       if (e.keyCode == 37) {
@@ -225,7 +245,12 @@
   });
 
 
-  
+  jQuery(document).on('keyup', function(e) {
+      if (e.keyCode == 17 && chainsaw === true) {
+          jQuery('#doomguy').css('transform', 'translateX(-50%)');
+          jQuery('#imp').removeClass('chainsaw');
+      }
+  });
   
   
   
