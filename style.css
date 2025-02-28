@@ -21,23 +21,19 @@
 
 body {
     background: #000;
-    height: 100vh;
     margin: 0;
     overflow: hidden;
     padding: 0;
-    width: 100vw;
 }
 
 #viewport {
-    height: 100%;
     left: 50%;
-    max-height: 800px;
-    max-width: 1280px;
+    height: 800px;
     overflow: hidden;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: 1280px;
 }
 
 #viewport::before {
@@ -76,12 +72,12 @@ h1 {
     left: 50%;
     position: fixed;
     transform: translateX(-50%);
-    width: 50%;
+    width: 760px;
     z-index: 5;
 }
 
 #doomguy[src$='chainsaw.gif'] {
-    width: 28%;
+    width: 360px !important;
 }
 
 .imp {
@@ -106,34 +102,32 @@ h1 {
 
 #top {
     background-image: url(img/ceiling1.png);
-    height: 100vh;
-    max-width: 1280px;
+    height: 880px;
     position: absolute;
-    top: -26%;
+    top: -208px;
     transform: perspective(500px) rotateX(-80deg);
-    width: 100%;
+    width: 1280px;
     z-index: 2;
 }
 
 #middle {
-    height: 33%;
+    height: 264px;
     left: 50%;
     position: absolute;
-    top: 25%;
+    top: 200px;
     transform: translateX(-50%);
-    width: 100%;
+    width: 1280px;
     z-index: 2;
 }
 
 #bottom {
     background-image: url(img/floor1.png);
-    bottom: -8%;
-    height: 100vh;
-    max-width: 1280px;
+    bottom: -64px;
+    height: 880px;
     overflow: hidden;
     position: absolute;
     transform: perspective(500px) rotateX(80deg);
-    width: 100%;
+    width: 1280px;
     z-index: 1;
 }
 
@@ -199,77 +193,67 @@ h1 {
 }
 
 .left1 {
-    padding-left: 75%;
-}
-
-.left1 #doomguy[src$='chainsaw.gif'],
-.right1 #doomguy[src$='chainsaw.gif'] {
-    width: 18%;
-}
-
-.left2 #doomguy[src$='chainsaw.gif'],
-.right2 #doomguy[src$='chainsaw.gif'] {
-    width: 15%;
+    padding-left: 1025px;
 }
 
 .left1 .item {
-    padding-left: 77.5%;
+    padding-left: 1705px;
     top: 300px;
     transform: translate(-50%) scale(.6);
 }
 
 .left2 {
-    padding-left: 150%;
+    padding-left: 2050px;
 }
 
 .left1 #doomguy,
 .right1 #doomguy {
-    width: 33%;
+    width: 760px;
 }
 
 .left2 #doomguy,
 .right2 #doomguy {
-    width: 25%;
+    width: 760px;
 }
 
 .left2 .item {
-    padding-left: 100%;
+    padding-left: 3330px;
 }
 
 .right1 {
-    padding-right: 75%;
+    padding-right: 1025px;
 }
 
 .right1 .item {
-    padding-right: 79.5%;
+    padding-right: 1740px;
     top: 300px;
     transform: translate(-50%) scale(.6);
 }
 
 .right2 {
-    padding-right: 150%;
+    padding-right: 2050px;
 }
 
 .right2 .item {
-    padding-right: 100%;
+    padding-right: 3330px;
 }
 
 .wall {
     background-image: url(img/wall1.png);
     background-size: 15%;
-    height: 125%;
-    left: -15%;
+    height: 330px;
+    left: -192px;
     overflow: hidden;
     pointer-events: none;
     position: absolute;
-    top: -14%;
+    top: -37px;
     transform: perspective(135px) rotateY(28deg);
     width: 90%;
 }
 
 .wall.right {
     left: initial;
-    right: -15%;
+    right: -192px;
     transform: perspective(135px) rotateY(-28deg);
 }
 
