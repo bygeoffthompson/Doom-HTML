@@ -93,11 +93,11 @@ h1 {
 }
 
 .imp[src$='4.png'] {
-    top: 480px;
+    top: 250px;
 }
 
 .imp[src$='5.png'] {
-    top: 600px;
+    top: 380px;
 }
 
 #top {
