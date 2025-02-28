@@ -31,12 +31,18 @@
     <span class="scroll-text">SCROLL</span>
 </h1>
 <div class="straight yes-progress" id="viewport">
+    <div id="conveyor">
+        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
+    </div>
     <div id="env">
         <div id="top"></div>
         <div id="middle">
             <div class="help-text left wall" id="left-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
                 <img alt="Door" class="door-wall" id="left-door" src="img/door-wall.png" />
+            </div>
+            <div class="door" id="door-1">
+                <img alt="Door" src="img/door-conveyor.png" />
             </div>
             <div class="right wall" id="right-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
@@ -46,14 +52,12 @@
         <div id="bottom"></div>
         <img alt="Doomguy" id="doomguy" src="img/doomguy/hand.png" />
     </div>
-    <div id="conveyor">
-        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
-    </div>
  </div>
 
 <script>
   var allDistance = 0;
   var impCount = 0;
+  var doorCount = 0;
   var currentDistance = 0;
   var knuckles = true;
   var chainsaw = false;
@@ -106,12 +110,38 @@
               jQuery('.help-text').removeClass('help-text');
           }
 
-          // Enemies sent down conveyor.
-          if (allDistance === 33 || allDistance === 125) {
-              jQuery('#conveyor').addClass('imp-sent');
+          // Doors.
+          if (allDistance === 200) {
+              jQuery('#conveyor').addClass('door-sent');
+          }
+          if (jQuery('#conveyor').hasClass('door-sent')) {
+              if (doorCount <= 54) {
+                  jQuery('#door-1').css({'opacity': 1, 'transform': 'translate(-50%, -50%) scale(' + doorCount * .1 + ')',});
+              }
+
+              if (doorCount === 55) {
+                  jQuery('#viewport').removeClass('yes-progress');
+              }
+
+              if (doorCount >= 45) {
+                  jQuery(document).on('keydown', function (e) {
+                      if (e.keyCode == 32) {
+                          jQuery('#viewport').addClass('yes-progress');
+                          jQuery('.door').addClass('open');
+                          setTimeout(function () {
+                              jQuery('.door').removeClass('open').css({'opacity': 0, 'padding-bottom': 0});
+                          }, 1500);
+                      }
+                  });
+              }
+              doorCount++
           }
 
+
           // Imps.
+          if (allDistance === 33 || allDistance === 125 || allDistance === 220) {
+              jQuery('#conveyor').addClass('imp-sent');
+          }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
               if (impCount <= 54) {
                   jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * -.25 + '%', 'max-width': impCount + '%'});
@@ -129,6 +159,8 @@
                   jQuery('#conveyor').removeClass('imp-sent');
                   jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                   setTimeout(function () {
+                      jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                      jQuery('#conveyor').removeClass('imp-sent');
                       jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
                   }, 750);
 

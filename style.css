@@ -19,7 +19,6 @@
     user-select: none;
 }
 
-
 body {
     background: #000;
     margin: 0;
@@ -50,12 +49,13 @@ body {
 }
 
 #viewport.hurt::before {
-    background: radial-gradient(transparent, red);
+    background: radial-gradient(transparent, #ff0);
 }
 
 #env {
     height: 100%;
     position: relative;
+    z-index: 4;
 }
 
 h1 {
@@ -90,7 +90,7 @@ h1 {
     top: 330px;
     transform: translate(-50%);
     width: 100%;
-    z-index: 2;
+    z-index: 5;
 }
 
 .imp[src$='4.png'] {
@@ -146,7 +146,7 @@ h1 {
 }
 
 .door {
-    height: 50%;
+    height: 118px;
     left: 50%;
     opacity: 0;
     overflow: hidden;
@@ -154,13 +154,19 @@ h1 {
     top: 50%;
     transform: translate(-50%, -50%);
     transition: padding-bottom 2s ease-in-out;
-    width: 16%;
+    width: 175px;
     z-index: 6;
 }
 
 .door img {
     height: 100%;
+    position: relative;
     width: 100%;
+    z-index: 9;
+}
+
+.door.open {
+    padding-bottom: 100%;
 }
 
 .door-wall {
