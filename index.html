@@ -34,7 +34,7 @@
     <div id="env">
         <div id="top"></div>
         <div id="middle">
-            <div class="left wall" id="left-wall">
+            <div class="help-text left wall" id="left-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
                 <img alt="Door" class="door-wall" id="left-door" src="img/door-wall.png" />
             </div>
@@ -101,6 +101,11 @@
           jQuery('#left-wall').css('background-position-x', negativeWall);
           jQuery('#right-wall').css('background-position-x', positiveWall);
 
+          // Help text.
+          if (allDistance === 10) {
+              jQuery('.help-text').removeClass('help-text');
+          }
+
           // Enemies sent down conveyor.
           if (allDistance === 33 || allDistance === 125) {
               jQuery('#conveyor').addClass('imp-sent');
@@ -136,15 +141,14 @@
 
               if (impCount === 55) {
                   jQuery('#viewport').addClass('hurt');
-                  var impHurt = window.setInterval(function(){
-                      jQuery('#viewport').toggleClass('hurt');
+                  setTimeout(function() {
+                      jQuery('#viewport').removeClass('hurt');
                   }, 1000);
               }
 
               if (impCount >= 42) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
-                          clearInterval(impHurt);
                           jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
                           jQuery('#conveyor').removeClass('imp-sent');
                           jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});

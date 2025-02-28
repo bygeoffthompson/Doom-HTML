@@ -15,6 +15,7 @@
 
 * {
     font-family: 'Doom';
+    letter-spacing: -1px;
     user-select: none;
 }
 
@@ -249,6 +250,17 @@ h1 {
     top: -37px;
     transform: perspective(135px) rotateY(28deg);
     width: 90%;
+}
+
+.wall.help-text::before {
+    bottom: 0;
+    color: #f00;
+    content: '⬆PRESS⬆';
+    display: block;
+    font-size: 30px;
+    opacity: .5;
+    position: absolute;
+    right: 525px;
 }
 
 .wall.right {
