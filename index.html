@@ -31,9 +31,6 @@
     <span class="scroll-text">SCROLL</span>
 </h1>
 <div class="straight yes-progress" id="viewport">
-    <div id="conveyor">
-        <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
-    </div>
     <div id="env">
         <div id="top"></div>
         <div id="middle">
@@ -43,6 +40,9 @@
             </div>
             <div class="door" id="door-1">
                 <img alt="Door" src="img/door-conveyor.png" />
+            </div>
+            <div id="conveyor">
+                <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
             </div>
             <div class="right wall" id="right-wall">
                 <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
@@ -139,7 +139,7 @@
 
 
           // Imps.
-          if (allDistance === 33 || allDistance === 125 || allDistance === 220) {
+          if (allDistance === 33 || allDistance === 125 || allDistance === 230) {
               jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {

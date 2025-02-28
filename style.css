@@ -45,11 +45,11 @@ body {
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 3;
+    z-index: 5;
 }
 
 #viewport.hurt::before {
-    background: radial-gradient(transparent, #ff0);
+    background: radial-gradient(transparent, #f00);
 }
 
 #env {
@@ -87,7 +87,7 @@ h1 {
     min-width: 5% !important;
     opacity: 0;
     position: absolute;
-    top: 330px;
+    top: 120px;
     transform: translate(-50%);
     width: 100%;
     z-index: 5;
