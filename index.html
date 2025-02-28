@@ -30,7 +30,7 @@
     <span class="doom-right">oM</span>
     <span class="scroll-text">SCROLL</span>
 </h1>
-<div class="straight yes-progress" id="viewport">
+<div class="straight" id="viewport">
     <div id="env">
         <div id="top"></div>
         <div id="middle">
@@ -92,7 +92,7 @@
       }
 
       // Up Arrow clicks.
-      if (e.keyCode == 38 && jQuery('#viewport').hasClass('yes-progress')) {
+      if (e.keyCode == 38 && !jQuery('#viewport').hasClass('no-progress')) {
           allDistance++
           currentDistance++
           // The Environment
@@ -120,13 +120,13 @@
               }
 
               if (doorCount === 55) {
-                  jQuery('#viewport').removeClass('yes-progress');
+                  jQuery('#viewport').addClass('no-progress');
               }
 
               if (doorCount >= 45) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 32) {
-                          jQuery('#viewport').addClass('yes-progress');
+                          jQuery('#viewport').removeClass('no-progress');
                           jQuery('.door').addClass('open');
                           setTimeout(function () {
                               jQuery('.door').removeClass('open').css({'opacity': 0, 'padding-bottom': 0});
@@ -139,27 +139,27 @@
 
 
           // Imps.
-          if (allDistance === 33 || allDistance === 125 || allDistance === 230) {
+          if (allDistance === 70 || allDistance === 230 || allDistance === 500) {
               jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
-              if (impCount <= 54) {
-                  jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * -.25 + '%', 'max-width': impCount + '%'});
+              impCount++
+              if (impCount >= 1 && impCount <= 54) {
+                  jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * 2 + 'px', 'transform': 'translate(-50%) scale(' + impCount * .25 + ')'});
                   var v1 = jQuery('#imp').attr('src');
                   var v2 = jQuery('#imp').attr('data-v1');
                   var v3 = jQuery('#imp').attr('data-v2');
                   if (impCount % 14 === 0) {
                       jQuery('#imp').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
                   }
-                  impCount++
               }
 
               if (impCount === 50 && jQuery('#imp').hasClass('chainsaw')) {
-                  jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                  jQuery('#viewport').removeClass('hurt no-progress');
                   jQuery('#conveyor').removeClass('imp-sent');
                   jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                   setTimeout(function () {
-                      jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                      jQuery('#viewport').removeClass('hurt no-progress');
                       jQuery('#conveyor').removeClass('imp-sent');
                       jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
                   }, 750);
@@ -181,7 +181,7 @@
               if (impCount >= 42) {
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 17) {
-                          jQuery('#viewport').addClass('yes-progress').removeClass('hurt');
+                          jQuery('#viewport').removeClass('hurt no-progress');
                           jQuery('#conveyor').removeClass('imp-sent');
                           jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
@@ -196,10 +196,6 @@
                       }
                   });
               }
-
-              if (impCount >= 55 && jQuery('#conveyor').hasClass('imp-sent')) {
-                  jQuery('#viewport').removeClass('yes-progress');
-              }
           }
 
 
@@ -213,23 +209,23 @@
           //    jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
           //}
 
-          // Doors.
-          if (allDistance > 100 && allDistance <= 649) {
-              jQuery('#right-door').css({'left': allDistance * 2.66 - 380 + 'px', 'opacity': 1});
-              if (allDistance === 300) {
+          // Wall Art door.
+          if (allDistance > 250 && allDistance <= 799) {
+              jQuery('#right-door').css({'left': allDistance * 2.66 - 530 + 'px', 'opacity': 1});
+              if (allDistance === 450) {
                   jQuery('#right-door').css('transform', 'scaleX(.5)');
               }
-          } else if (allDistance === 650) {
+          } else if (allDistance === 800) {
               jQuery('#right-door').css({'opacity': 0, 'left': '-280px'});
           }
-          if (allDistance > 700 && allDistance <= 1249) {
-              jQuery('#left-door').css({'right': (allDistance - 699) * 2.66 + 'px', 'opacity': 1});
-              if (allDistance === 900) {
-                  jQuery('#left-door').css('transform', 'scaleX(.5)');
-              }
-          } else if (allDistance === 1250) {
-              jQuery('#left-door').css({'opacity': 0, 'right': '0px'});
-          }
+          //if (allDistance > 700 && allDistance <= 1249) {
+          //    jQuery('#left-door').css({'right': (allDistance - 699) * 2.66 + 'px', 'opacity': 1});
+          //    if (allDistance === 900) {
+          //        jQuery('#left-door').css('transform', 'scaleX(.5)');
+          //    }
+          //} else if (allDistance === 1250) {
+          //    jQuery('#left-door').css({'opacity': 0, 'right': '0px'});
+          //}
 
 
 

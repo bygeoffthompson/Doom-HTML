@@ -84,12 +84,11 @@ h1 {
 .imp {
     height: auto;
     left: 50%;
-    min-width: 5% !important;
     opacity: 0;
     position: absolute;
-    top: 120px;
+    top: 140px;
     transform: translate(-50%);
-    width: 100%;
+    width: 40px;
     z-index: 5;
 }
 
@@ -266,7 +265,7 @@ h1 {
     font-size: 30px;
     opacity: .5;
     position: absolute;
-    right: 525px;
+    right: 540px;
 }
 
 .wall.right {
