@@ -217,7 +217,7 @@
                   var v2 = jQuery('#zombie').attr('data-v1');
                   var v3 = jQuery('#zombie').attr('data-v2');
                   var v4 = jQuery('#zombie').attr('data-v3');
-                  if (zombieCount % 14 === 0) {
+                  if (zombieCount % 11 === 0) {
                       jQuery('#zombie').attr({'src': v2, 'data-v1': v3, 'data-v2': v1, 'data-v3': v4})
                   }
               }
@@ -251,9 +251,9 @@
                       if (e.keyCode == 17) {
                           jQuery('#viewport').removeClass('hurt no-progress');
                           jQuery('#conveyor').removeClass('zombie-sent');
-                          jQuery('#zombie').attr({'src': 'img/enemies/zombie-4.png'});
+                          jQuery('#zombie').attr({'src': 'img/enemies/zombie-5.png'});
                           setTimeout(function () {
-                              jQuery('#zombie').attr({'src': 'img/enemies/zombie-5.png'});
+                              jQuery('#zombie').attr({'src': 'img/enemies/zombie-6.png'});
                           }, 750);
 
                           setTimeout(function () {
