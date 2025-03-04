@@ -58,6 +58,27 @@ body {
     z-index: 4;
 }
 
+#feedback {
+    align-items: center;
+    bottom: 10px;
+    color: #fff;
+    display: flex;
+    font-size: 14px;
+    justify-content: start;
+    left: 10px;
+    opacity: .5;
+    position: fixed;
+}
+
+#feedback a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#feedback a:hover {
+    text-decoration: underline;
+}
+
 h1 {
     color: #fff;
     display: inline-block;
