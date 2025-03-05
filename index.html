@@ -69,12 +69,9 @@
   var zombieCount = 0;
   var doorCount = 0;
   var doorFrameCount = 0;
-  var currentDistance = 0;
   var knuckles = true;
   var chainsaw = false;
   var chainsawAccess = false;
-  var pistol = false;
-  var pistolAccess = false;
 
   jQuery(document).on('keydown', function(e) {
       // Ctrl clicks.
@@ -95,10 +92,6 @@
           setTimeout(function () {
               jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
           }, 300);
-          setTimeout(function() {
-              // Code to be executed after 1 second
-              console.log("This message appears after 1 second.");
-          }, 1000);
       }
 
       if (e.keyCode == 17 && chainsaw === true) {
@@ -109,12 +102,11 @@
       // Up Arrow clicks.
       if (e.keyCode == 38 && !jQuery('#viewport').hasClass('no-progress')) {
           allDistance++
-          currentDistance++
           // The Environment
-          var negativeFloor = '-' + currentDistance * 2 + 'px';
-          var positiveFloor = currentDistance * 2 + 'px';
-          var negativeWall = '-' + currentDistance * 2.66 + 'px';
-          var positiveWall = currentDistance * 2.66 + 'px';
+          var negativeFloor = '-' + allDistance * 2 + 'px';
+          var positiveFloor = allDistance * 2 + 'px';
+          var negativeWall = '-' + allDistance * 2.66 + 'px';
+          var positiveWall = allDistance * 2.66 + 'px';
           jQuery('#bottom').css('background-position-y', positiveFloor);
           jQuery('#top').css('background-position-y', negativeFloor);
           jQuery('#left-wall').css('background-position-x', negativeWall);
@@ -126,9 +118,9 @@
           }
 
           // Doors.
-          doorArray = [175, 650];
+          doorArray = [125, 650];
           if (doorArray.includes(allDistance)) {
-              //jQuery('#conveyor').addClass('door-sent');
+              jQuery('#conveyor').addClass('door-sent');
           }
           if (jQuery('#conveyor').hasClass('door-sent')) {
               if (doorCount >= 10 && doorCount <= 54) {
@@ -164,9 +156,9 @@
           jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 696 + 'px',});
 
           // Imps.
-          impArray = [50, 450, 690, 825];
+          impArray = [225, 450, 690, 825];
           if (impArray.includes(allDistance)) {
-              //jQuery('#conveyor').addClass('imp-sent');
+              jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
               impCount++
@@ -193,12 +185,11 @@
                   setTimeout(function () {
                       jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
                       impCount = 0;
-                      currentDistance = 0;
                   }, 1500);
               }
 
               if (impCount === 55) {
-                  jQuery('#viewport').addClass('hurt');
+                  jQuery('#viewport').addClass('hurt no-progress');
                   setTimeout(function() {
                       jQuery('#viewport').removeClass('hurt');
                   }, 1000);
@@ -217,7 +208,6 @@
                           setTimeout(function () {
                               jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
                               impCount = 0;
-                              currentDistance = 0;
                           }, 1500);
                       }
                   });
@@ -226,7 +216,7 @@
 
 
           // Zombies.
-          zombieArray = [50, 200];
+          zombieArray = [50, 350, 900];
           if (zombieArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('zombie-sent');
           }
@@ -260,7 +250,6 @@
                   setTimeout(function () {
                       jQuery('#zombie').css('opacity', 0).attr({'src': 'img/enemies/zombie-1.png'});
                       zombieCount = 0;
-                      currentDistance = 0;
                   }, 1500);
               }
 
@@ -284,7 +273,6 @@
                           setTimeout(function () {
                               jQuery('#zombie').css({'opacity': 0, 'transform': 'translate(-50%)', 'margin-top': 0}).attr({'src': 'img/enemies/zombie-1.png'});
                               zombieCount = 0;
-                              currentDistance = 0;
                           }, 1500);
                       }
                   });
@@ -312,11 +300,11 @@
 
 
 
-          console.log(allDistance + ' allDistance');
-          console.log(currentDistance + ' currentDistance');
+          //console.log(allDistance + ' allDistance');
           //console.log(doorFrameCount + ' doorFrameCount');
           //console.log(doorCount + ' doorCount');
-          console.log(zombieCount + ' zombieCount');
+          //console.log(zombieCount + ' zombieCount');
+          console.log('Congrats you can read');
       }
 
       // Down Arrow clicks.
