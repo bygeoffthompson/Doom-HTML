@@ -56,7 +56,7 @@
     </div>
  </div>
 <div id="feedback">
-    <a href="https://www.twitter.com/bygeoffthompson" target="_blank">Qs, Cs, and Feedback</a>
+    <a href="https://www.twitter.com/bygeoffthompson" target="_blank">Qs, Cs, or Feedback</a>
     ⟶
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-twitter-x" viewBox="0 0 16 16">
         <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
@@ -68,6 +68,7 @@
   var impCount = 0;
   var zombieCount = 0;
   var doorCount = 0;
+  var redLineCount = 0;
   var currentDistance = 0;
   var knuckles = true;
   var chainsaw = false;
@@ -120,36 +121,47 @@
               jQuery('.help-text').removeClass('help-text');
           }
 
+          // Red lines.
+          jQuery('.left .wall-red-line.active').css({'right': redLineCount + 675 + 'px',});
+          jQuery('.right .wall-red-line.active').css({'left': redLineCount + 700 + 'px',});
+
           // Doors.
-          if (allDistance === 200 || allDistance === 400) {
+          if (allDistance === 175 || allDistance === 650) {
               jQuery('#conveyor').addClass('door-sent');
           }
           if (jQuery('#conveyor').hasClass('door-sent')) {
               if (doorCount >= 10 && doorCount <= 54) {
-                  jQuery('#door-1').css({'opacity': 1, 'transform': 'translate(-50%, -50%) scale(' + doorCount * .1 + ')',});
+                  jQuery('#door-1').css({'opacity': 1, 'transform': 'translateX(-50%) scale(' + doorCount * .1 + ')',});
               }
 
               if (doorCount === 55) {
                   jQuery('#viewport').addClass('no-progress');
+                  jQuery('.wall-red-line').addClass('active');
               }
 
-              if (doorCount >= 45) {
+              if (doorCount >= 55) {
                   jQuery(document).on('keyup', function (e) {
                       if (e.keyCode == 16 || e.keyCode === 32) {
                           jQuery('#viewport').removeClass('no-progress');
                           jQuery('.door').addClass('open');
-                          setTimeout(function () {
-                              jQuery('.door').removeClass('open').css({'opacity': 0, 'padding-bottom': 0});
-                          }, 1500);
                       }
                   });
+                  redLineCount++
               }
+
               doorCount++
+
+              if (redLineCount >= 75) {
+                  jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
+                  jQuery('#conveyor').removeClass('door-sent');
+                  jQuery('.wall-red-line').removeClass('active').css({'left': 'revert-layer', 'right': 'revert-layer'});
+                  doorCount = 0;
+                  redLineCount = 0;
+              }
           }
 
-
           // Imps.
-          if (allDistance === 250 || allDistance === 500) {
+          if (allDistance === 50 || allDistance === 450 || allDistance === 685 || allDistance === 750) {
               jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
@@ -210,7 +222,7 @@
 
 
           // Zombies.
-          if (allDistance === 70) {
+          if (allDistance === 250) {
               jQuery('#conveyor').addClass('zombie-sent');
           }
           if (jQuery('#conveyor').hasClass('zombie-sent')) {
@@ -275,24 +287,14 @@
           }
 
 
-
-          // Red Lines.
-          //if (allDistance > 0 && allDistance <= 349) {
-          //    jQuery('.left .wall-red-line').css({'right': allDistance * 2.66 - 18 + 'px', 'opacity': 1});
-          //    jQuery('.right .wall-red-line').css({'left': allDistance * 2.66 + 'px', 'opacity': 1});
-          //} else if (allDistance === 350) {
-          //    jQuery('.left .wall-red-line').css({'right': '-18px', 'opacity': 0});
-          //    jQuery('.right .wall-red-line').css({'left': '0', 'opacity': 0});
-          //}
-
           // Wall Art door.
           if (allDistance > 250 && allDistance <= 799) {
-              jQuery('#right-door').css({'left': allDistance * 2.66 - 530 + 'px', 'opacity': 1});
+              //jQuery('#right-door').css({'left': allDistance * 2.66 - 530 + 'px', 'opacity': 1});
               if (allDistance === 450) {
-                  jQuery('#right-door').css('transform', 'scaleX(.5)');
+                  //jQuery('#right-door').css('transform', 'scaleX(.5)');
               }
           } else if (allDistance === 800) {
-              jQuery('#right-door').css({'opacity': 0, 'left': '-280px'});
+              //jQuery('#right-door').css({'opacity': 0, 'left': '-280px'});
           }
           //if (allDistance > 700 && allDistance <= 1249) {
           //    jQuery('#left-door').css({'right': (allDistance - 699) * 2.66 + 'px', 'opacity': 1});
@@ -306,8 +308,8 @@
 
 
           console.log(allDistance + ' allDistance');
-          console.log(zombieCount + ' zombieCount');
-          console.log(impCount + ' impCount');
+          console.log(redLineCount + ' redLineCount');
+          console.log(doorCount + ' doorCount');
       }
 
       // Down Arrow clicks.

@@ -185,14 +185,15 @@ h1 {
 }
 
 .door {
-    height: 118px;
+    height: 114px;
     left: 50%;
     opacity: 0;
     overflow: hidden;
+    padding-bottom: 0;
     position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    transition: padding-bottom 2s ease-in-out;
+    top: 74px;
+    transform: translateX(-50%);
+    transition: padding-bottom 2s ease-in;
     width: 175px;
     z-index: 6;
 }
@@ -205,7 +206,7 @@ h1 {
 }
 
 .door.open {
-    padding-bottom: 100%;
+    padding-bottom: 100% !important;
 }
 
 .door-wall {
@@ -322,10 +323,19 @@ h1 {
     top: -130px;
     transform: translateX(-50%);
     width: 24px;
-    z-index: 2;
+    z-index: 999999;
+}
+
+.wall-red-line.active {
+    left: 700px;
+    opacity: 1;
 }
 
 .left .wall-red-line {
     left: initial;
-    right: 0;
+    right: -24px;
+}
+
+.left .wall-red-line.active {
+    right: 675px;
 }
