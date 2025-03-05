@@ -123,16 +123,16 @@
               jQuery('#conveyor').addClass('door-sent');
           }
           if (jQuery('#conveyor').hasClass('door-sent')) {
-              if (doorCount >= 10 && doorCount <= 54) {
-                  jQuery('#door-1').css({'opacity': 1, 'transform': 'translateX(-50%) scale(' + doorCount * .1 + ')',});
+              if (doorCount >= 8 && doorCount <= 54) {
+                  jQuery('#door-1').css({'opacity': 1, 'top': doorCount * .75 + 75 + 'px' ,'transform': 'translateX(-50%) scale(' + doorCount * .175 + ')',});
               }
 
-              if (doorCount === 55) {
+              if (doorCount === 52) {
                   jQuery('#viewport').addClass('no-progress');
                   jQuery('.door-frame').addClass('active');
               }
 
-              if (doorCount >= 55) {
+              if (doorCount >= 52) {
                   jQuery(document).on('keyup', function (e) {
                       if (e.keyCode == 16 || e.keyCode === 32) {
                           jQuery('#viewport').removeClass('no-progress');
@@ -152,8 +152,8 @@
                   doorFrameCount = 0;
               }
           }
-          jQuery('.left .door-frame.active').css({'right': doorFrameCount * 2.66 + 675 + 'px',});
-          jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 696 + 'px',});
+          jQuery('.left .door-frame.active').css({'right': doorFrameCount * 2.66 + 717 + 'px',});
+          jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 737 + 'px',});
 
           // Imps.
           impArray = [225, 450, 690, 825];
@@ -216,7 +216,7 @@
 
 
           // Zombies.
-          zombieArray = [50, 350, 900];
+          zombieArray = [50, 350];
           if (zombieArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('zombie-sent');
           }

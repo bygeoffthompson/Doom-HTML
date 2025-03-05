@@ -185,16 +185,16 @@ h1 {
 }
 
 .door {
-    height: 114px;
+    height: 95px;
     left: 50%;
     opacity: 0;
     overflow: hidden;
     padding-bottom: 0;
     position: absolute;
-    top: 74px;
+    top: 83px;
     transform: translateX(-50%);
     transition: padding-bottom 2s ease-in;
-    width: 175px;
+    width: 150px;
     z-index: 6;
 }
 
@@ -327,7 +327,7 @@ h1 {
 }
 
 .door-frame.active {
-    left: 700px;
+    left: 737px;
     opacity: 1;
 }
 
@@ -337,5 +337,5 @@ h1 {
 }
 
 .left .door-frame.active {
-    right: 675px;
+    right: 717px;
 }
