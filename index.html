@@ -68,7 +68,7 @@
   var impCount = 0;
   var zombieCount = 0;
   var doorCount = 0;
-  var redLineCount = 0;
+  var doorFrameCount = 0;
   var currentDistance = 0;
   var knuckles = true;
   var chainsaw = false;
@@ -128,7 +128,7 @@
           // Doors.
           doorArray = [175, 650];
           if (doorArray.includes(allDistance)) {
-              jQuery('#conveyor').addClass('door-sent');
+              //jQuery('#conveyor').addClass('door-sent');
           }
           if (jQuery('#conveyor').hasClass('door-sent')) {
               if (doorCount >= 10 && doorCount <= 54) {
@@ -147,26 +147,26 @@
                           jQuery('.door').addClass('open');
                       }
                   });
-                  redLineCount++
+                  doorFrameCount++
               }
 
               doorCount++
 
-              if (redLineCount >= 75) {
+              if (doorFrameCount >= 75) {
                   jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
                   jQuery('#conveyor').removeClass('door-sent');
                   jQuery('.door-frame').removeClass('active').css({'left': 'revert-layer', 'right': 'revert-layer'});
                   doorCount = 0;
-                  redLineCount = 0;
+                  doorFrameCount = 0;
               }
           }
-          jQuery('.left .door-frame.active').css({'right': redLineCount * 2.66 + 675 + 'px',});
-          jQuery('.right .door-frame.active').css({'left': redLineCount * 2.66 + 696 + 'px',});
+          jQuery('.left .door-frame.active').css({'right': doorFrameCount * 2.66 + 675 + 'px',});
+          jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 696 + 'px',});
 
           // Imps.
           impArray = [50, 450, 690, 825];
           if (impArray.includes(allDistance)) {
-              jQuery('#conveyor').addClass('imp-sent');
+              //jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
               impCount++
@@ -226,7 +226,7 @@
 
 
           // Zombies.
-          zombieArray = [250];
+          zombieArray = [50, 200];
           if (zombieArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('zombie-sent');
           }
@@ -265,7 +265,7 @@
               }
 
               if (zombieCount === 55) {
-                  jQuery('#viewport').addClass('hurt');
+                  jQuery('#viewport').addClass('hurt no-progress');
                   setTimeout(function() {
                       jQuery('#viewport').removeClass('hurt');
                   }, 1000);
@@ -282,8 +282,8 @@
                           }, 750);
 
                           setTimeout(function () {
-                              jQuery('#zombie').css('opacity', 0).attr({'src': 'img/enemies/zombie-1.png'});
-                              impCount = 0;
+                              jQuery('#zombie').css({'opacity': 0, 'transform': 'translate(-50%)', 'margin-top': 0}).attr({'src': 'img/enemies/zombie-1.png'});
+                              zombieCount = 0;
                               currentDistance = 0;
                           }, 1500);
                       }
@@ -313,8 +313,10 @@
 
 
           console.log(allDistance + ' allDistance');
-          console.log(redLineCount + ' redLineCount');
-          console.log(doorCount + ' doorCount');
+          console.log(currentDistance + ' currentDistance');
+          //console.log(doorFrameCount + ' doorFrameCount');
+          //console.log(doorCount + ' doorCount');
+          console.log(zombieCount + ' zombieCount');
       }
 
       // Down Arrow clicks.
