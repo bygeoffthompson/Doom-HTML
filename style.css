@@ -315,27 +315,27 @@ h1 {
     transform: perspective(135px) rotateY(-28deg);
 }
 
-.wall-red-line {
+.door-frame {
     height: 600px;
     left: 0;
     opacity: 0;
     position: absolute;
     top: -130px;
     transform: translateX(-50%);
-    width: 24px;
+    width: 21px;
     z-index: 999999;
 }
 
-.wall-red-line.active {
+.door-frame.active {
     left: 700px;
     opacity: 1;
 }
 
-.left .wall-red-line {
+.left .door-frame {
     left: initial;
     right: -24px;
 }
 
-.left .wall-red-line.active {
+.left .door-frame.active {
     right: 675px;
 }

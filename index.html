@@ -34,18 +34,18 @@
         <div id="top"></div>
         <div id="middle">
             <div class="help-text left wall" id="left-wall">
-                <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+                <img alt="Door frame" class="door-frame" src="img/door-frame.png" />
                 <img alt="Door" class="door-wall" id="left-door" src="img/door-wall.png" />
             </div>
             <div class="door" id="door-1">
-                <img alt="Door" src="img/door-conveyor.png" />
+                <img alt="Door" src="img/door.png" />
             </div>
             <div id="conveyor">
                 <img alt="Enemy IMP" class="imp item" data-v1="img/enemies/imp-2.png" data-v2="img/enemies/imp-3.png" id="imp" src="img/enemies/imp-1.png" />
                 <img alt="Enemy Zombie" class="zombie item" data-v1="img/enemies/zombie-2.png" data-v2="img/enemies/zombie-3.png" data-v1="img/enemies/zombie-4.png" id="zombie" src="img/enemies/zombie-1.png" />
             </div>
             <div class="right wall" id="right-wall">
-                <img alt="Red line" class="wall-red-line" src="img/wall2.png" />
+                <img alt="Door frame" class="door-frame" src="img/door-frame.png" />
                 <img alt="Door" class="door-wall" id="right-door" src="img/door-wall.png" />
             </div>
         </div>
@@ -95,6 +95,10 @@
           setTimeout(function () {
               jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
           }, 300);
+          setTimeout(function() {
+              // Code to be executed after 1 second
+              console.log("This message appears after 1 second.");
+          }, 1000);
       }
 
       if (e.keyCode == 17 && chainsaw === true) {
@@ -121,12 +125,9 @@
               jQuery('.help-text').removeClass('help-text');
           }
 
-          // Red lines.
-          jQuery('.left .wall-red-line.active').css({'right': redLineCount + 675 + 'px',});
-          jQuery('.right .wall-red-line.active').css({'left': redLineCount + 700 + 'px',});
-
           // Doors.
-          if (allDistance === 175 || allDistance === 650) {
+          doorArray = [175, 650];
+          if (doorArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('door-sent');
           }
           if (jQuery('#conveyor').hasClass('door-sent')) {
@@ -136,7 +137,7 @@
 
               if (doorCount === 55) {
                   jQuery('#viewport').addClass('no-progress');
-                  jQuery('.wall-red-line').addClass('active');
+                  jQuery('.door-frame').addClass('active');
               }
 
               if (doorCount >= 55) {
@@ -154,14 +155,17 @@
               if (redLineCount >= 75) {
                   jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
                   jQuery('#conveyor').removeClass('door-sent');
-                  jQuery('.wall-red-line').removeClass('active').css({'left': 'revert-layer', 'right': 'revert-layer'});
+                  jQuery('.door-frame').removeClass('active').css({'left': 'revert-layer', 'right': 'revert-layer'});
                   doorCount = 0;
                   redLineCount = 0;
               }
           }
+          jQuery('.left .door-frame.active').css({'right': redLineCount * 2.66 + 675 + 'px',});
+          jQuery('.right .door-frame.active').css({'left': redLineCount * 2.66 + 696 + 'px',});
 
           // Imps.
-          if (allDistance === 50 || allDistance === 450 || allDistance === 685 || allDistance === 750) {
+          impArray = [50, 450, 690, 825];
+          if (impArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('imp-sent');
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
@@ -222,7 +226,8 @@
 
 
           // Zombies.
-          if (allDistance === 250) {
+          zombieArray = [250];
+          if (zombieArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('zombie-sent');
           }
           if (jQuery('#conveyor').hasClass('zombie-sent')) {
