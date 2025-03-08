@@ -73,8 +73,14 @@
   var chainsaw = false;
   var chainsawAccess = false;
 
+  // Items.
+  doorArray = [125, 650];
+  impArray = [225, 450, 690, 825];
+  zombieArray = [50, 350];
+
+  // Clicks.
   jQuery(document).on('keydown', function(e) {
-      // Ctrl clicks.
+      // Ctrl.
       if (e.keyCode == 17 && knuckles === true) {
           jQuery('#doomguy').attr({'src': 'img/doomguy/fist-1.png'});
           setTimeout(function () {
@@ -93,13 +99,12 @@
               jQuery('#doomguy').attr({'src': 'img/doomguy/hand.png'});
           }, 300);
       }
-
       if (e.keyCode == 17 && chainsaw === true) {
           jQuery('#doomguy').css('transform', 'translateX(-50%) skew(40deg)');
-          jQuery('#imp').addClass('chainsaw');
+          jQuery('#imp, #zombie').addClass('chainsaw');
       }
 
-      // Up Arrow clicks.
+      // Up Arrow.
       if (e.keyCode == 38 && !jQuery('#viewport').hasClass('no-progress')) {
           allDistance++
           // The Environment
@@ -118,7 +123,6 @@
           }
 
           // Doors.
-          doorArray = [125, 650];
           if (doorArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('door-sent');
           }
@@ -156,7 +160,6 @@
           jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 737 + 'px',});
 
           // Imps.
-          impArray = [225, 450, 690, 825];
           if (impArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('imp-sent');
           }
@@ -216,7 +219,6 @@
 
 
           // Zombies.
-          zombieArray = [50, 350];
           if (zombieArray.includes(allDistance)) {
               jQuery('#conveyor').addClass('zombie-sent');
           }
@@ -289,28 +291,20 @@
           } else if (allDistance === 800) {
               //jQuery('#right-door').css({'opacity': 0, 'left': '-280px'});
           }
-          //if (allDistance > 700 && allDistance <= 1249) {
-          //    jQuery('#left-door').css({'right': (allDistance - 699) * 2.66 + 'px', 'opacity': 1});
-          //    if (allDistance === 900) {
-          //        jQuery('#left-door').css('transform', 'scaleX(.5)');
-          //    }
-          //} else if (allDistance === 1250) {
-          //    jQuery('#left-door').css({'opacity': 0, 'right': '0px'});
-          //}
 
 
 
-          //console.log(allDistance + ' allDistance');
+          console.log(allDistance + ' allDistance');
           //console.log(doorFrameCount + ' doorFrameCount');
           //console.log(doorCount + ' doorCount');
-          //console.log(zombieCount + ' zombieCount');
+          console.log(zombieCount + ' zombieCount');
           console.log('Congrats you can read');
       }
 
-      // Down Arrow clicks.
+      // Down Arrow.
       if (e.keyCode == 40) {}
 
-      // Left Arrow clicks.
+      // Left Arrow.
       if (e.keyCode == 37) {
           if (jQuery('#viewport').hasClass('straight')) {
               jQuery('#viewport').toggleClass('straight left1');
@@ -323,7 +317,7 @@
           }
       }
 
-      // Right Arrow clicks.
+      // Right Arrow.
       if (e.keyCode == 39) {
           if (jQuery('#viewport').hasClass('straight')) {
               jQuery('#viewport').toggleClass('straight right1');
@@ -355,7 +349,7 @@
   jQuery(document).on('keyup', function(e) {
       if (e.keyCode == 17 && chainsaw === true) {
           jQuery('#doomguy').css('transform', 'translateX(-50%)');
-          jQuery('#imp').removeClass('chainsaw');
+          jQuery('#imp, #zombie').removeClass('chainsaw');
       }
   });
 
@@ -366,7 +360,7 @@
 
 
 
-  // Cheat codes
+  // Cheats.
   jQuery(document).on('keydown', function(e) {
       if (e.keyCode == 73) {
           jQuery(document).on('keydown', function (e) {
@@ -387,10 +381,10 @@
                                                                       if (e.keyCode == 82) {
                                                                           jQuery(document).on('keyup', function (e) {
                                                                               if (e.keyCode == 82) {
-                                                                                  alert('IDCHOPPERS');
                                                                                   knuckles= false;
                                                                                   chainsaw = true;
                                                                                   chainsawAccess = true;
+                                                                                  jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
                                                                               }
                                                                           });
                                                                       }
