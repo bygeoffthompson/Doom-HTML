@@ -62,6 +62,15 @@
         <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
     </svg>
 </div>
+<div id="audio">
+    <audio id="chainsaw-select-audio" src="audio/chainsaw-select.wav"></audio>
+    <audio id="chainsaw-idle-audio" src="audio/chainsaw-idle.wav"></audio>
+    <audio id="chainsaw-attack-audio" src="audio/chainsaw-attack.wav"></audio>
+    <audio id="door-audio" src="audio/door.wav"></audio>
+    <audio id="fist-audio" src="audio/fist.wav"></audio>
+    <audio id="imp-mumble-audio" src="audio/imp-mumble.wav"></audio>
+    <audio id="zombie-mumble-audio" src="audio/zombie-mumble.wav"></audio>
+</div>
 
 <script>
   var allDistance = 0;
@@ -100,6 +109,7 @@
           }, 300);
       }
       if (e.keyCode == 17 && chainsaw === true) {
+          jQuery('#chainsaw-attack-audio')[0].play();
           jQuery('#doomguy').css('transform', 'translateX(-50%) skew(40deg)');
           jQuery('#imp, #zombie').addClass('chainsaw');
       }
@@ -141,6 +151,7 @@
                       if (e.keyCode == 16 || e.keyCode === 32) {
                           jQuery('#viewport').removeClass('no-progress');
                           jQuery('.door').addClass('open');
+                          jQuery('#door-audio')[0].play();
                       }
                   });
                   doorFrameCount++
@@ -165,12 +176,17 @@
           }
           if (jQuery('#conveyor').hasClass('imp-sent')) {
               impCount++
+              if (impCount === 1) {
+                  jQuery('#imp-mumble-audio')[0].play();
+              }
+
               if (impCount >= 1 && impCount <= 54) {
                   jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * 2 + 'px', 'transform': 'translate(-50%) scale(' + impCount * .25 + ')'});
                   var v1 = jQuery('#imp').attr('src');
                   var v2 = jQuery('#imp').attr('data-v1');
                   var v3 = jQuery('#imp').attr('data-v2');
                   if (impCount % 14 === 0) {
+                      jQuery('#imp-mumble-audio')[0].play();
                       jQuery('#imp').attr({'src': v2, 'data-v1': v3, 'data-v2': v1})
                   }
               }
@@ -203,6 +219,7 @@
                       if (e.keyCode == 17) {
                           jQuery('#viewport').removeClass('hurt no-progress');
                           jQuery('#conveyor').removeClass('imp-sent');
+                          jQuery('#fist-audio')[0].play();
                           jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
                               jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
@@ -226,6 +243,7 @@
               zombieCount++
               if (zombieCount === 4) {
                   jQuery('#zombie').css('opacity', 1);
+                  jQuery('#zombie-mumble-audio')[0].play();
               }
 
               if (zombieCount >= 1 && zombieCount <= 54) {
@@ -235,11 +253,13 @@
                   var v3 = jQuery('#zombie').attr('data-v2');
                   var v4 = jQuery('#zombie').attr('data-v3');
                   if (zombieCount % 11 === 0) {
+                      jQuery('#zombie-mumble-audio')[0].play();
                       jQuery('#zombie').attr({'src': v2, 'data-v1': v3, 'data-v2': v1, 'data-v3': v4})
                   }
               }
 
               if (zombieCount === 50 && jQuery('#zombie').hasClass('chainsaw')) {
+                  jQuery('#chainsaw-attack-audio')[0].play();
                   jQuery('#viewport').removeClass('hurt no-progress');
                   jQuery('#conveyor').removeClass('zombie-sent');
                   jQuery('#zombie').attr({'src': 'img/enemies/zombie-4.png'});
@@ -267,6 +287,7 @@
                       if (e.keyCode == 17) {
                           jQuery('#viewport').removeClass('hurt no-progress');
                           jQuery('#conveyor').removeClass('zombie-sent');
+                          jQuery('#fist-audio')[0].play();
                           jQuery('#zombie').attr({'src': 'img/enemies/zombie-5.png'});
                           setTimeout(function () {
                               jQuery('#zombie').attr({'src': 'img/enemies/zombie-6.png'});
@@ -296,7 +317,7 @@
 
           console.log(allDistance + ' allDistance');
           //console.log(doorFrameCount + ' doorFrameCount');
-          //console.log(doorCount + ' doorCount');
+          console.log(impCount + ' impCount');
           console.log(zombieCount + ' zombieCount');
           console.log('Congrats you can read');
       }
@@ -341,6 +362,7 @@
       if (e.keyCode == 50 && chainsawAccess === true) {
           knuckles = false;
           chainsaw = true;
+          jQuery('#chainsaw-select-audio')[0].play();
           jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
       }
   });
