@@ -217,6 +217,22 @@ h1 {
     width: auto;
 }
 
+.room-2 #bottom {
+    background-image: url(img/floor2.png);
+    filter: grayscale(30%);
+}
+
+.room-2 #top {
+    background-image: url(img/ceiling2.png);
+}
+
+.room-2 .wall {
+    border-bottom: 12px solid rgba(0,0,0,.5);
+    border-top: 5px solid rgba(0,0,0,.8);
+    box-sizing: border-box;
+    filter: brightness(.75);
+}
+
 #left-door {
     margin-right: -280px;
     right: 0;

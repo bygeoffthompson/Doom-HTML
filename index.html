@@ -148,6 +148,11 @@
                           jQuery('#viewport').removeClass('no-progress');
                           jQuery('.door').addClass('open');
                           jQuery('#door-audio')[0].play();
+
+                          // Room Change.
+                          jQuery('#viewport').toggleClass('room-2');
+
+
                           setTimeout(function () {
                               jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
                               jQuery('#conveyor').removeClass('door-sent');
