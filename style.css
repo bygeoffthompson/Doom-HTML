@@ -314,28 +314,3 @@ h1 {
     right: -192px;
     transform: perspective(135px) rotateY(-28deg);
 }
-
-.door-frame {
-    height: 600px;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    top: -130px;
-    transform: translateX(-50%);
-    width: 21px;
-    z-index: 999999;
-}
-
-.door-frame.active {
-    left: 737px;
-    opacity: 1;
-}
-
-.left .door-frame {
-    left: initial;
-    right: -24px;
-}
-
-.left .door-frame.active {
-    right: 717px;
-}

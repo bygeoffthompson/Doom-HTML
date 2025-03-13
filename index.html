@@ -34,7 +34,6 @@
         <div id="top"></div>
         <div id="middle">
             <div class="help-text left wall" id="left-wall">
-                <img alt="Door frame" class="door-frame" src="img/door-frame.png" />
                 <img alt="Door" class="door-wall" id="left-door" src="img/door-wall.png" />
             </div>
             <div class="door" id="door-1">
@@ -45,7 +44,6 @@
                 <img alt="Enemy Zombie" class="zombie item" data-v1="img/enemies/zombie-2.png" data-v2="img/enemies/zombie-3.png" data-v1="img/enemies/zombie-4.png" id="zombie" src="img/enemies/zombie-1.png" />
             </div>
             <div class="right wall" id="right-wall">
-                <img alt="Door frame" class="door-frame" src="img/door-frame.png" />
                 <img alt="Door" class="door-wall" id="right-door" src="img/door-wall.png" />
             </div>
         </div>
@@ -141,15 +139,15 @@
                   jQuery('#door-1').css({'opacity': 1, 'top': doorCount * .75 + 75 + 'px' ,'transform': 'translateX(-50%) scale(' + doorCount * .175 + ')',});
               }
 
-              if (doorCount === 52) {
+              if (doorCount === 54) {
                   jQuery('#viewport').addClass('no-progress');
-                  jQuery('.door-frame').addClass('active');
               }
 
-              if (doorCount >= 52) {
-                  jQuery(document).on('keyup', function (e) {
+              if (doorCount >= 54) {
+                  jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 16 || e.keyCode === 32) {
                           jQuery('#viewport').removeClass('no-progress');
+                          jQuery('#conveyor').removeClass('door-sent');
                           jQuery('.door').addClass('open');
                           jQuery('#door-audio')[0].play();
                       }
@@ -162,13 +160,10 @@
               if (doorFrameCount >= 75) {
                   jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
                   jQuery('#conveyor').removeClass('door-sent');
-                  jQuery('.door-frame').removeClass('active').css({'left': 'revert-layer', 'right': 'revert-layer'});
                   doorCount = 0;
                   doorFrameCount = 0;
               }
           }
-          jQuery('.left .door-frame.active').css({'right': doorFrameCount * 2.66 + 717 + 'px',});
-          jQuery('.right .door-frame.active').css({'left': doorFrameCount * 2.66 + 737 + 'px',});
 
           // Imps.
           if (impArray.includes(allDistance)) {
@@ -191,22 +186,6 @@
                   }
               }
 
-              if (impCount === 50 && jQuery('#imp').hasClass('chainsaw')) {
-                  jQuery('#viewport').removeClass('hurt no-progress');
-                  jQuery('#conveyor').removeClass('imp-sent');
-                  jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
-                  setTimeout(function () {
-                      jQuery('#viewport').removeClass('hurt no-progress');
-                      jQuery('#conveyor').removeClass('imp-sent');
-                      jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
-                  }, 500);
-
-                  setTimeout(function () {
-                      jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
-                      impCount = 0;
-                  }, 1500);
-              }
-
               if (impCount === 55) {
                   jQuery('#viewport').addClass('hurt no-progress');
                   setTimeout(function() {
@@ -223,12 +202,12 @@
                           jQuery('#imp').attr({'src': 'img/enemies/imp-4.png'});
                           setTimeout(function () {
                               jQuery('#imp').attr({'src': 'img/enemies/imp-5.png'});
-                          }, 750);
+                          }, 334);
 
                           setTimeout(function () {
-                              jQuery('#imp').css('opacity', 0).attr({'src': 'img/enemies/imp-1.png'});
+                              jQuery('#imp').css({'width': '70px', 'opacity': 0, 'margin-top': 0}).attr({'src': 'img/enemies/imp-1.png'});
                               impCount = 0;
-                          }, 1500);
+                          }, 667);
                       }
                   });
               }
@@ -257,23 +236,6 @@
                   }
               }
 
-              if (zombieCount === 50 && jQuery('#zombie').hasClass('chainsaw')) {
-                  jQuery('#chainsaw-attack-audio')[0].play();
-                  jQuery('#viewport').removeClass('hurt no-progress');
-                  jQuery('#conveyor').removeClass('zombie-sent');
-                  jQuery('#zombie').attr({'src': 'img/enemies/zombie-4.png'});
-                  setTimeout(function () {
-                      jQuery('#viewport').removeClass('hurt no-progress');
-                      jQuery('#conveyor').removeClass('zombie-sent');
-                      jQuery('#zombie').attr({'src': 'img/enemies/zombie-5.png'});
-                  }, 500);
-
-                  setTimeout(function () {
-                      jQuery('#zombie').css('opacity', 0).attr({'src': 'img/enemies/zombie-1.png'});
-                      zombieCount = 0;
-                  }, 1500);
-              }
-
               if (zombieCount === 55) {
                   jQuery('#viewport').addClass('hurt no-progress');
                   setTimeout(function() {
@@ -290,12 +252,12 @@
                           jQuery('#zombie').attr({'src': 'img/enemies/zombie-5.png'});
                           setTimeout(function () {
                               jQuery('#zombie').attr({'src': 'img/enemies/zombie-6.png'});
-                          }, 750);
+                          }, 334);
 
                           setTimeout(function () {
-                              jQuery('#zombie').css({'opacity': 0, 'transform': 'translate(-50%)', 'margin-top': 0}).attr({'src': 'img/enemies/zombie-1.png'});
+                              jQuery('#zombie').css({'opacity': 0, 'width': '40px', 'margin-top': 0}).attr({'src': 'img/enemies/zombie-1.png'});
                               zombieCount = 0;
-                          }, 1500);
+                          }, 667);
                       }
                   });
               }
@@ -314,7 +276,8 @@
 
 
 
-          //console.log(allDistance + ' allDistance');
+          console.log(allDistance + ' allDistance');
+          console.log(doorCount + ' doorCount');
           //console.log(doorFrameCount + ' doorFrameCount');
           //console.log(impCount + ' impCount');
           //console.log(zombieCount + ' zombieCount');
