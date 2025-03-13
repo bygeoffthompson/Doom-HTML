@@ -75,7 +75,6 @@
   var impCount = 0;
   var zombieCount = 0;
   var doorCount = 0;
-  var doorFrameCount = 0;
   var knuckles = true;
   var chainsaw = false;
   var chainsawAccess = false;
@@ -147,22 +146,18 @@
                   jQuery(document).on('keydown', function (e) {
                       if (e.keyCode == 16 || e.keyCode === 32) {
                           jQuery('#viewport').removeClass('no-progress');
-                          jQuery('#conveyor').removeClass('door-sent');
                           jQuery('.door').addClass('open');
                           jQuery('#door-audio')[0].play();
+                          setTimeout(function () {
+                              jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
+                              jQuery('#conveyor').removeClass('door-sent');
+                              doorCount = 0;
+                          }, 2000);
                       }
                   });
-                  doorFrameCount++
               }
 
               doorCount++
-
-              if (doorFrameCount >= 75) {
-                  jQuery('.door').css({'opacity': 0, 'transform': 'translateX(-50%)', 'padding-bottom': 0}).removeClass('open');
-                  jQuery('#conveyor').removeClass('door-sent');
-                  doorCount = 0;
-                  doorFrameCount = 0;
-              }
           }
 
           // Imps.
@@ -278,7 +273,6 @@
 
           console.log(allDistance + ' allDistance');
           console.log(doorCount + ' doorCount');
-          //console.log(doorFrameCount + ' doorFrameCount');
           //console.log(impCount + ' impCount');
           //console.log(zombieCount + ' zombieCount');
           console.log('Congrats you can read');
