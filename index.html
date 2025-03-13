@@ -181,7 +181,7 @@
               }
 
               if (impCount >= 1 && impCount <= 54) {
-                  jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * 2 + 'px', 'transform': 'translate(-50%) scale(' + impCount * .25 + ')'});
+                  jQuery('#imp').css({'opacity': 1, 'margin-top': impCount * -2 + 'px', 'width': impCount * 10 + 70 + 'px'});
                   var v1 = jQuery('#imp').attr('src');
                   var v2 = jQuery('#imp').attr('data-v1');
                   var v3 = jQuery('#imp').attr('data-v2');
@@ -242,12 +242,11 @@
           if (jQuery('#conveyor').hasClass('zombie-sent')) {
               zombieCount++
               if (zombieCount === 4) {
-                  jQuery('#zombie').css('opacity', 1);
                   jQuery('#zombie-mumble-audio')[0].play();
               }
 
               if (zombieCount >= 1 && zombieCount <= 54) {
-                  jQuery('#zombie').css({'margin-top': zombieCount * 4 + 'px', 'transform': 'translate(-50%) scale(' + zombieCount * .1 + ')'});
+                  jQuery('#zombie').css({'opacity': 1, 'margin-top': zombieCount * -4 + 'px', 'width': zombieCount * 12 + 40});
                   var v1 = jQuery('#zombie').attr('src');
                   var v2 = jQuery('#zombie').attr('data-v1');
                   var v3 = jQuery('#zombie').attr('data-v2');
@@ -315,10 +314,10 @@
 
 
 
-          console.log(allDistance + ' allDistance');
+          //console.log(allDistance + ' allDistance');
           //console.log(doorFrameCount + ' doorFrameCount');
-          console.log(impCount + ' impCount');
-          console.log(zombieCount + ' zombieCount');
+          //console.log(impCount + ' impCount');
+          //console.log(zombieCount + ' zombieCount');
           console.log('Congrats you can read');
       }
 
