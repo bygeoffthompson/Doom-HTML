@@ -247,7 +247,7 @@
               }
 
               if (zombieCount >= 1 && zombieCount <= 54) {
-                  jQuery('#zombie').css({'margin-top': zombieCount * 2 + 'px', 'transform': 'translate(-50%) scale(' + zombieCount * .25 + ')'});
+                  jQuery('#zombie').css({'margin-top': zombieCount * 4 + 'px', 'transform': 'translate(-50%) scale(' + zombieCount * .1 + ')'});
                   var v1 = jQuery('#zombie').attr('src');
                   var v2 = jQuery('#zombie').attr('data-v1');
                   var v3 = jQuery('#zombie').attr('data-v2');
@@ -330,9 +330,9 @@
           if (jQuery('#viewport').hasClass('straight')) {
               jQuery('#viewport').toggleClass('straight left1');
           } else if (jQuery('#viewport').hasClass('left1')) {
-              jQuery('#viewport').toggleClass('left1 left2');
+              jQuery('#viewport').toggleClass('left1 left2 no-progress');
           } else if (jQuery('#viewport').hasClass('right2')) {
-              jQuery('#viewport').toggleClass('right2 right1');
+              jQuery('#viewport').toggleClass('no-progress right2 right1');
           } else if (jQuery('#viewport').hasClass('right1')) {
               jQuery('#viewport').toggleClass('right1 straight');
           }
@@ -343,9 +343,9 @@
           if (jQuery('#viewport').hasClass('straight')) {
               jQuery('#viewport').toggleClass('straight right1');
           } else if (jQuery('#viewport').hasClass('right1')) {
-              jQuery('#viewport').toggleClass('right1 right2');
+              jQuery('#viewport').toggleClass('no-progress right1 right2');
           } else if (jQuery('#viewport').hasClass('left2')) {
-              jQuery('#viewport').toggleClass('left2 left1');
+              jQuery('#viewport').toggleClass('left2 left1 no-progress');
           } else if (jQuery('#viewport').hasClass('left1')) {
               jQuery('#viewport').toggleClass('left1 straight');
           }
