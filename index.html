@@ -246,7 +246,7 @@
               }
 
               if (zombieCount >= 1 && zombieCount <= 54) {
-                  jQuery('#zombie').css({'opacity': 1, 'margin-top': zombieCount * -4 + 'px', 'width': zombieCount * 12 + 40});
+                  jQuery('#zombie').css({'opacity': 1, 'margin-top': zombieCount * -2 + 'px', 'width': zombieCount * 10 + 40});
                   var v1 = jQuery('#zombie').attr('src');
                   var v2 = jQuery('#zombie').attr('data-v1');
                   var v3 = jQuery('#zombie').attr('data-v2');
@@ -364,6 +364,11 @@
           jQuery('#chainsaw-select-audio')[0].play();
           jQuery('#doomguy').attr({'src': 'img/doomguy/chainsaw.gif'});
       }
+      var chainsawIdle = window.setInterval(function(){
+          if (chainsaw === true) {
+              jQuery('#chainsaw-idle-audio')[0].play();
+          }
+      }, 4000);
   });
 
 
